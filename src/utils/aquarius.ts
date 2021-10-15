@@ -138,8 +138,9 @@ export async function queryMetadata(
   const whitelistedSearchQuery = getWhitelistedSearchQuery(query)
   try {
     const response: AxiosResponse<any> = await axios.post(
-      `${metadataCacheUri}/api/v1/aquarius/assets/ddo/query`,
-      { ...whitelistedSearchQuery, cancelToken }
+      `${metadataCacheUri}/api/v1/aquarius/assets/query`,
+      { ...whitelistedSearchQuery },
+      { cancelToken }
     )
     if (!response || response.status !== 200 || !response.data) return
     return transformQueryResult(response.data, query.from, query.size)
