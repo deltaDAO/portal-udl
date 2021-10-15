@@ -9,7 +9,14 @@ import { AssetSelectionAsset } from '../components/molecules/FormFields/AssetSel
 import { PriceList, getAssetsPriceList } from './subgraph'
 import axios, { CancelToken, AxiosResponse } from 'axios'
 import { OrdersData_tokenOrders as OrdersData } from '../@types/apollo/OrdersData'
-import { metadataCacheUri } from '../../app.config'
+import { metadataCacheUri, allowDynamicPricing } from '../../app.config'
+import addressConfig from '../../address.config'
+
+export function getDynamicPricingQuery(concat = true): string {
+  return allowDynamicPricing === 'true'
+    ? ''
+    : `${concat && 'AND '}-price.type:pool`
+}
 
 export interface DownloadedAsset {
   dtSymbol: string
@@ -33,13 +40,13 @@ function getQueryForAlgorithmDatasets(algorithmDid: string, chainId?: number) {
           },
           {
             query_string: {
-              query: `chainId:${chainId}`
+              query: `chainId:${chainId} ${getDynamicPricingQuery()}`
             }
           }
         ]
-      }
-    },
-    sort: { created: 'desc' }
+      },
+      sort: { created: 'desc' }
+    }
   }
 }
 
@@ -91,15 +98,48 @@ export function transformDIDListToQuery(didList: string[] | DID[]): string {
   return chainQuery
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getWhitelistedSearchQuery(query: any): any {
+  const { whitelists } = addressConfig
+
+  const whitelistQueryArrays = Object.entries(whitelists)
+    .filter(([field, whitelist]) => whitelist.length > 0)
+    .map(([field, whitelist]) =>
+      whitelist.map((address: string) => {
+        return { match: { [field]: address } }
+      })
+    )
+
+  const whitelistQuery = [].concat(...whitelistQueryArrays)
+
+  return {
+    ...query,
+    query: {
+      bool: {
+        must: [
+          {
+            bool: {
+              should: [...whitelistQuery]
+            }
+          },
+          {
+            ...query.query
+          }
+        ]
+      }
+    }
+  }
+}
+
 export async function queryMetadata(
   query: any,
   cancelToken: CancelToken
 ): Promise<any> {
+  const whitelistedSearchQuery = getWhitelistedSearchQuery(query)
   try {
     const response: AxiosResponse<any> = await axios.post(
-      `${metadataCacheUri}/api/v1/aquarius/assets/query`,
-      { ...query },
-      { cancelToken }
+      `${metadataCacheUri}/api/v1/aquarius/assets/ddo/query`,
+      { ...whitelistedSearchQuery, cancelToken }
     )
     if (!response || response.status !== 200 || !response.data) return
     return transformQueryResult(response.data, query.from, query.size)
@@ -122,6 +162,9 @@ export async function retrieveDDO(
       { cancelToken }
     )
     if (!response || response.status !== 200 || !response.data) return
+
+    if (allowDynamicPricing !== 'true' && response.data.price?.type === 'pool')
+      return
 
     const data = { ...response.data }
     return new DDO(data)

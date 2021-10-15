@@ -5,44 +5,24 @@ import Button from '../atoms/Button'
 import Bookmarks from '../molecules/Bookmarks'
 import {
   queryMetadata,
-  transformChainIdsListToQuery
+  transformChainIdsListToQuery,
+  getDynamicPricingQuery
 } from '../../utils/aquarius'
 import Permission from '../organisms/Permission'
-import { getHighestLiquidityDIDs } from '../../utils/subgraph'
 import { DDO, Logger } from '@oceanprotocol/lib'
-import { useSiteMetadata } from '../../hooks/useSiteMetadata'
 import { useUserPreferences } from '../../providers/UserPreferences'
 import styles from './Home.module.css'
 import { useIsMounted } from '../../hooks/useIsMounted'
 import { useCancelToken } from '../../hooks/useCancelToken'
 
-async function getQueryHighest(
-  chainIds: number[]
-): Promise<[SearchQuery, string]> {
-  const [dids, didsLength] = await getHighestLiquidityDIDs(chainIds)
-  const queryHighest = {
-    size: didsLength > 0 ? didsLength : 1,
-    query: {
-      query_string: {
-        query: `${dids && `(${dids}) AND`}(${transformChainIdsListToQuery(
-          chainIds
-        )}) AND -isInPurgatory:true `,
-        fields: ['dataToken']
-      }
-    }
-  }
-
-  return [queryHighest, dids]
-}
-
-function getQueryLatest(chainIds: number[]): any {
+function getQueryLatest(chainIds: number[]): SearchQuery {
   return {
     size: 9,
     query: {
       query_string: {
         query: `(${transformChainIdsListToQuery(
           chainIds
-        )}) AND -isInPurgatory:true `
+        )}) ${getDynamicPricingQuery()} AND -isInPurgatory:true `
       }
     },
     sort: { created: 'desc' }
@@ -119,14 +99,7 @@ function SectionQueryResult({
 }
 
 export default function HomePage(): ReactElement {
-  const [queryAndDids, setQueryAndDids] = useState<[SearchQuery, string]>()
   const { chainIds } = useUserPreferences()
-
-  useEffect(() => {
-    getQueryHighest(chainIds).then((results) => {
-      setQueryAndDids(results)
-    })
-  }, [chainIds])
 
   return (
     <Permission eventType="browse">
@@ -135,14 +108,6 @@ export default function HomePage(): ReactElement {
           <h3>Bookmarks</h3>
           <Bookmarks />
         </section>
-
-        {queryAndDids && (
-          <SectionQueryResult
-            title="Highest Liquidity"
-            query={queryAndDids[0]}
-            queryData={queryAndDids[1]}
-          />
-        )}
 
         <SectionQueryResult
           title="Recently Published"

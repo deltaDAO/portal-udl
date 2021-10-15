@@ -16,6 +16,8 @@ export interface FormFieldProps {
   disclaimer?: string
   disclaimerValues?: string[]
   advanced?: boolean
+  disclaimer?: string
+  disclaimerValues?: string[]
 }
 
 export interface FormContent {

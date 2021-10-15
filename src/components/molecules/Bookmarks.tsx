@@ -5,7 +5,11 @@ import { Logger } from '@oceanprotocol/lib'
 import Price from '../atoms/Price'
 import Tooltip from '../atoms/Tooltip'
 import AssetTitle from './AssetListTitle'
-import { retrieveDDOListByDIDs } from '../../utils/aquarius'
+import {
+  retrieveDDOListByDIDs,
+  transformChainIdsListToQuery,
+  getDynamicPricingQuery
+} from '../../utils/aquarius'
 import { getAssetsBestPrices, AssetListPrices } from '../../utils/subgraph'
 import axios, { CancelToken } from 'axios'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
@@ -16,6 +20,28 @@ async function getAssetsBookmarked(
   chainIds: number[],
   cancelToken: CancelToken
 ) {
+  const searchDids = JSON.stringify(bookmarks)
+    .replace(/,/g, ' ')
+    .replace(/"/g, '')
+    .replace(/(\[|\])/g, '')
+    // for whatever reason ddo.id is not searchable, so use ddo.dataToken instead
+    .replace(/(did:op:)/g, '0x')
+
+  const queryBookmarks = {
+    page: 1,
+    offset: 100,
+    query: {
+      query_string: {
+        query: `(${searchDids}) AND (${transformChainIdsListToQuery(
+          chainIds
+        )}) ${getDynamicPricingQuery()}`,
+        fields: ['dataToken'],
+        default_operator: 'OR'
+      }
+    },
+    sort: { created: -1 }
+  }
+
   try {
     const result = await retrieveDDOListByDIDs(bookmarks, chainIds, cancelToken)
     return result

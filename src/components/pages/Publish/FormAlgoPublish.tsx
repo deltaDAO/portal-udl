@@ -37,6 +37,8 @@ const query = graphql`
               disclaimer
               disclaimerValues
               advanced
+              disclaimer
+              disclaimerValues
             }
             warning
           }
