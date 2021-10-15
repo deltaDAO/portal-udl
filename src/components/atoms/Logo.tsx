@@ -13,7 +13,9 @@ export default function Logo({
   branding?: boolean
 }): ReactElement {
   return branding ? (
-    <LogoAssetBranding className={styles.logo} />
+    <>
+      <LogoAssetBranding className={styles.brand} />
+    </>
   ) : noWordmark ? (
     <LogoAsset className={styles.logo} />
   ) : (

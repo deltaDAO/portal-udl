@@ -1,6 +1,6 @@
 {
   "site": {
-    "siteTitle": "deltaDAO Market",
+    "siteTitle": "Market",
     "siteTagline": "A marketplace to find, publish and trade data sets in the Ocean Network.",
     "siteUrl": "https://market001.delta-dao.com",
     "siteIcon": "node_modules/@oceanprotocol/art/logo/favicon-white.png",
