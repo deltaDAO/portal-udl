@@ -1,14 +1,8 @@
 .brand,
-.brandDark,
 .logo {
   width: 2.5rem;
   height: 2.5rem;
   margin: 0;
-}
-
-.brand {
-  width: 12rem;
-  height: auto;
 }
 
 .brand [class*='text'] {
