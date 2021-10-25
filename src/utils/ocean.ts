@@ -36,11 +36,6 @@ export function getOceanConfig(network: string | number): ConfigHelperConfig {
         ...config,
         ...gaiaxtestnetConfig
       }
-    : network === 'rinkeby' || network === 4
-    ? {
-        ...config,
-        providerUri: 'https://provider.rinkeby.delta-dao.com'
-      }
     : config
 }
 
