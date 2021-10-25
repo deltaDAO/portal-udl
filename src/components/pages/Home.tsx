@@ -1,37 +1,30 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import AssetList from '../organisms/AssetList'
-import { SearchQuery } from '@oceanprotocol/lib/dist/node/metadatacache/MetadataCache'
 import Button from '../atoms/Button'
 import Bookmarks from '../molecules/Bookmarks'
 import {
-  queryMetadata,
-  transformChainIdsListToQuery,
-  getDynamicPricingQuery
+  generateBaseQuery,
+  getFilterTerm,
+  queryMetadata
 } from '../../utils/aquarius'
 import Permission from '../organisms/Permission'
+import { getHighestLiquidityDatatokens } from '../../utils/subgraph'
 import { DDO, Logger } from '@oceanprotocol/lib'
 import { useUserPreferences } from '../../providers/UserPreferences'
 import styles from './Home.module.css'
 import { useIsMounted } from '../../hooks/useIsMounted'
 import { useCancelToken } from '../../hooks/useCancelToken'
-
-function getQueryLatest(chainIds: number[]): SearchQuery {
-  return {
-    size: 9,
-    query: {
-      query_string: {
-        query: `(${transformChainIdsListToQuery(
-          chainIds
-        )}) ${getDynamicPricingQuery()} AND -isInPurgatory:true `
-      }
-    },
-    sort: { created: 'desc' }
-  }
-}
+import { SearchQuery } from '../../models/aquarius/SearchQuery'
+import { SortOptions, SortTermOptions } from '../../models/SortAndFilters'
+import { BaseQueryParams } from '../../models/aquarius/BaseQueryParams'
+import { PagedAssets } from '../../models/PagedAssets'
 
 function sortElements(items: DDO[], sorted: string[]) {
   items.sort(function (a, b) {
-    return sorted.indexOf(a.dataToken) - sorted.indexOf(b.dataToken)
+    return (
+      sorted.indexOf(a.dataToken.toLowerCase()) -
+      sorted.indexOf(b.dataToken.toLowerCase())
+    )
   })
   return items
 }
@@ -45,7 +38,7 @@ function SectionQueryResult({
   title: ReactElement | string
   query: SearchQuery
   action?: ReactElement
-  queryData?: string
+  queryData?: string[]
 }) {
   const { chainIds } = useUserPreferences()
   const [result, setResult] = useState<any>()
@@ -55,7 +48,7 @@ function SectionQueryResult({
   useEffect(() => {
     async function init() {
       if (chainIds.length === 0) {
-        const result: any = {
+        const result: PagedAssets = {
           results: [],
           page: 0,
           totalPages: 0,
@@ -69,8 +62,7 @@ function SectionQueryResult({
           const result = await queryMetadata(query, newCancelToken())
           if (!isMounted()) return
           if (queryData && result?.totalResults > 0) {
-            const searchDIDs = queryData.split(' ')
-            const sortedAssets = sortElements(result.results, searchDIDs)
+            const sortedAssets = sortElements(result.results, queryData)
             const overflow = sortedAssets.length - 9
             sortedAssets.splice(sortedAssets.length - overflow, overflow)
             result.results = sortedAssets
@@ -83,7 +75,7 @@ function SectionQueryResult({
       }
     }
     init()
-  }, [isMounted, newCancelToken, query])
+  }, [chainIds.length, isMounted, newCancelToken, query, queryData])
 
   return (
     <section className={styles.section}>
@@ -99,7 +91,20 @@ function SectionQueryResult({
 }
 
 export default function HomePage(): ReactElement {
+  const [queryLatest, setQueryLatest] = useState<SearchQuery>()
   const { chainIds } = useUserPreferences()
+
+  useEffect(() => {
+    const baseParams = {
+      chainIds: chainIds,
+      esPaginationOptions: { size: 9 },
+      sortOptions: {
+        sortBy: SortTermOptions.Created
+      } as SortOptions
+    } as BaseQueryParams
+
+    setQueryLatest(generateBaseQuery(baseParams))
+  }, [chainIds])
 
   return (
     <Permission eventType="browse">
@@ -109,15 +114,17 @@ export default function HomePage(): ReactElement {
           <Bookmarks />
         </section>
 
-        <SectionQueryResult
-          title="Recently Published"
-          query={getQueryLatest(chainIds)}
-          action={
-            <Button style="text" to="/search?sort=created&sortOrder=desc">
-              All data sets and algorithms →
-            </Button>
-          }
-        />
+        {queryLatest && (
+          <SectionQueryResult
+            title="Recently Published"
+            query={queryLatest}
+            action={
+              <Button style="text" to="/search?sort=created&sortOrder=desc">
+                All data sets and algorithms →
+              </Button>
+            }
+          />
+        )}
       </>
     </Permission>
   )
