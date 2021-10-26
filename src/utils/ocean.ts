@@ -26,7 +26,9 @@ export function getOceanConfig(network: string | number): ConfigHelperConfig {
       network === 'bsc' ||
       network === 56 ||
       network === 'gaiaxtestnet' ||
-      network === 2021000
+      network === 2021000 ||
+      network === 'catenaxtestnet' ||
+      network === 2021001
       ? undefined
       : process.env.GATSBY_INFURA_PROJECT_ID
   ) as ConfigHelperConfig
@@ -35,6 +37,16 @@ export function getOceanConfig(network: string | number): ConfigHelperConfig {
     ? {
         ...config,
         ...gaiaxtestnetConfig
+      }
+    : network === 'rinkeby' || network === 4
+    ? {
+        ...config,
+        providerUri: 'https://provider.rinkeby.delta-dao.com'
+      }
+    : network === 'catenaxtestnet' || network === 2021001
+    ? {
+        ...config,
+        ...catenaxtestnetConfig
       }
     : config
 }

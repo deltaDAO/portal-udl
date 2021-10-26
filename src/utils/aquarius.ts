@@ -18,12 +18,6 @@ import { BaseQueryParams } from '../models/aquarius/BaseQueryParams'
 import { FilterTerm } from '../models/aquarius/FilterTerm'
 import { SortDirectionOptions, SortTermOptions } from '../models/SortAndFilters'
 
-export function getDynamicPricingQuery(concat = true): string {
-  return allowDynamicPricing === 'true'
-    ? ''
-    : `${concat && 'AND '}-price.type:pool`
-}
-
 export interface DownloadedAsset {
   dtSymbol: string
   timestamp: number
@@ -40,14 +34,41 @@ export const MAXIMUM_NUMBER_OF_PAGES_WITH_RESULTS = 476
  */
 export function getFilterTerm(
   filterField: string,
-  value: string | number | boolean | number[] | string[]
+  value: string | number | boolean | number[] | string[],
+  key: 'terms' | 'term' | 'match' = 'term'
 ): FilterTerm {
   const isArray = Array.isArray(value)
+  const useKey = key === 'term' ? (isArray ? 'terms' : 'term') : key
   return {
-    [isArray ? 'terms' : 'term']: {
+    [useKey]: {
       [filterField]: value
     }
   }
+}
+
+export function getWhitelistShould(): // eslint-disable-next-line camelcase
+{ should: FilterTerm[][]; minimum_should_match: 1 } | undefined {
+  const { whitelists } = addressConfig
+
+  const whitelistFilterTerms = Object.entries(whitelists)
+    .filter(([field, whitelist]) => whitelist.length > 0)
+    .map(([field, whitelist]) =>
+      whitelist.map((address) => getFilterTerm(field, address, 'match'))
+    )
+
+  return whitelistFilterTerms.length > 0
+    ? {
+        should: whitelistFilterTerms,
+        minimum_should_match: 1
+      }
+    : undefined
+}
+
+export function getDynamicPricingMustNot(): // eslint-disable-next-line camelcase
+{ must_not: FilterTerm } | undefined {
+  return allowDynamicPricing === 'true'
+    ? undefined
+    : { must_not: getFilterTerm('price.type', 'pool') }
 }
 
 export function generateBaseQuery(
@@ -62,12 +83,13 @@ export function generateBaseQuery(
         filter: [
           ...(baseQueryParams.filters || []),
           getFilterTerm('chainId', baseQueryParams.chainIds),
-          getFilterTerm('_index', 'aquarius'),
-          getDynamicPricingQuery(),
+          getFilterTerm('_index', 'ocean'),
           ...(baseQueryParams.ignorePurgatory
             ? []
             : [getFilterTerm('isInPurgatory', 'false')])
-        ]
+        ],
+        ...getDynamicPricingMustNot(),
+        ...getWhitelistShould()
       }
     }
   } as SearchQuery
@@ -78,6 +100,10 @@ export function generateBaseQuery(
         baseQueryParams.sortOptions.sortDirection ||
         SortDirectionOptions.Descending
     }
+
+  generatedQuery.sort = undefined
+
+  console.log(generatedQuery)
 
   return generatedQuery
 }
@@ -126,48 +152,14 @@ export function transformDIDListToQuery(didList: string[] | DID[]): string {
   return chainQuery
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getWhitelistedSearchQuery(query: any): any {
-  const { whitelists } = addressConfig
-
-  const whitelistQueryArrays = Object.entries(whitelists)
-    .filter(([field, whitelist]) => whitelist.length > 0)
-    .map(([field, whitelist]) =>
-      whitelist.map((address: string) => {
-        return { match: { [field]: address } }
-      })
-    )
-
-  const whitelistQuery = [].concat(...whitelistQueryArrays)
-
-  return {
-    ...query,
-    query: {
-      bool: {
-        must: [
-          {
-            bool: {
-              should: [...whitelistQuery]
-            }
-          },
-          {
-            ...query.query
-          }
-        ]
-      }
-    }
-  }
-}
-
 export async function queryMetadata(
   query: SearchQuery,
   cancelToken: CancelToken
 ): Promise<PagedAssets> {
-  const whitelistedSearchQuery = getWhitelistedSearchQuery(query)
   try {
     const response: AxiosResponse<SearchResponse> = await axios.post(
       `${metadataCacheUri}/api/v1/aquarius/assets/query`,
-      { ...whitelistedSearchQuery },
+      { ...query },
       { cancelToken }
     )
     if (!response || response.status !== 200 || !response.data) return

@@ -1,10 +1,8 @@
 import { Logger } from '@oceanprotocol/lib'
 import {
   generateBaseQuery,
-  getDynamicPricingQuery,
   getFilterTerm,
-  queryMetadata,
-  transformChainIdsListToQuery
+  queryMetadata
 } from '../../../utils/aquarius'
 import queryString from 'query-string'
 import { CancelToken } from 'axios'
@@ -103,18 +101,6 @@ export function getSearchQuery(
                 query: `${prefixedSearchTerm}`,
                 fields: searchFields,
                 default_operator: 'AND'
-              }
-            },
-            {
-              query_string: {
-                query: `${transformChainIdsListToQuery(
-                  chainIds
-                )} ${getDynamicPricingQuery()}`
-              }
-            },
-            {
-              term: {
-                isInPurgatory: false
               }
             }
           ]
