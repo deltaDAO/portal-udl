@@ -20,7 +20,7 @@ axios(chainDataUrl).then((response) => {
       decimals: 18
     },
     infoURL: 'https://gaia-x.eu',
-    shortName: 'GX',
+    shortName: 'Gaia-X',
     chainId: 2021000,
     networkId: 2021000
   })
@@ -38,7 +38,7 @@ axios(chainDataUrl).then((response) => {
       decimals: 18
     },
     infoURL: 'https://catena-x.net',
-    shortName: 'CX',
+    shortName: 'Catena-X',
     chainId: 2021001,
     networkId: 2021001
   })
