@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import styles from './Header.module.css'
 import { ReactComponent as DataXChange } from '../../../images/dataxchange.svg'
 import { ReactComponent as DeltadaoText } from '../../../images/deltaDAO_logo_text.svg'
-import Boxes from './Boxes'
 import { graphql, useStaticQuery } from 'gatsby'
 
 const contentQuery = graphql`

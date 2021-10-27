@@ -20,7 +20,7 @@
 .tagLine {
   font-size: var(--font-size-h1);
   font-weight: var(--font-weight-heavy);
-  color: var(--font-color-heading);
+  color: var(--brand-grey-dimmed);
   margin-top: calc(var(--spacer) * 4);
   margin-bottom: calc(var(--spacer) * 2);
   text-transform: lowercase;

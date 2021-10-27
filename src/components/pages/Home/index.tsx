@@ -14,6 +14,33 @@ import { BaseQueryParams } from '../../../models/aquarius/BaseQueryParams'
 import { PagedAssets } from '../../../models/PagedAssets'
 import Header from './Header'
 import Boxes from './Boxes'
+import Topic, { TTopic } from './Topic'
+import { graphql, useStaticQuery } from 'gatsby'
+import { ReactComponent as Education } from '../../../images/education.svg'
+import { ReactComponent as DataEconomy } from '../../../images/data_economy.svg'
+
+const topicQuery = graphql`
+  query TopicQuery {
+    file(relativePath: { eq: "pages/home/topics.json" }) {
+      childHomeJson {
+        topics {
+          svg
+          title
+          content
+          cta {
+            call
+            action
+          }
+        }
+      }
+    }
+  }
+`
+
+const topicSvgMap = {
+  education: <Education />,
+  data_economy: <DataEconomy />
+}
 
 function sortElements(items: DDO[], sorted: string[]) {
   items.sort(function (a, b) {
@@ -90,6 +117,9 @@ export default function HomePage(): ReactElement {
   const [queryLatest, setQueryLatest] = useState<SearchQuery>()
   const { chainIds } = useUserPreferences()
 
+  const data = useStaticQuery(topicQuery)
+  const { topics } = data.file.childHomeJson
+
   useEffect(() => {
     const baseParams = {
       chainIds: chainIds,
@@ -106,11 +136,19 @@ export default function HomePage(): ReactElement {
     <>
       <Header />
       <Boxes />
+      {(topics as TTopic[]).map((topic, i) => (
+        <Topic
+          key={topic.title}
+          svgComponent={topicSvgMap[topic.svg]}
+          topic={topic}
+          mirror={i % 2 === 1}
+        />
+      ))}
       <Permission eventType="browse">
         <>
           {queryLatest && (
             <SectionQueryResult
-              title="Recently Published"
+              title="browse our data services"
               query={queryLatest}
               action={
                 <Button style="text" to="/search?sort=created&sortOrder=desc">
