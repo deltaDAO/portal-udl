@@ -47,7 +47,7 @@ export function getFilterTerm(
 }
 
 export function getWhitelistShould(): // eslint-disable-next-line camelcase
-{ should: FilterTerm[][]; minimum_should_match: 1 } | undefined {
+{ should: FilterTerm[]; minimum_should_match: 1 } | undefined {
   const { whitelists } = addressConfig
 
   const whitelistFilterTerms = Object.entries(whitelists)
@@ -55,6 +55,7 @@ export function getWhitelistShould(): // eslint-disable-next-line camelcase
     .map(([field, whitelist]) =>
       whitelist.map((address) => getFilterTerm(field, address, 'match'))
     )
+    .reduce((prev, cur) => prev.concat(cur))
 
   return whitelistFilterTerms.length > 0
     ? {
