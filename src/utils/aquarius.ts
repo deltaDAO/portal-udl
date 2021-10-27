@@ -103,8 +103,6 @@ export function generateBaseQuery(
 
   generatedQuery.sort = undefined
 
-  console.log(generatedQuery)
-
   return generatedQuery
 }
 
