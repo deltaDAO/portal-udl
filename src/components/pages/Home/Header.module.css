@@ -25,3 +25,9 @@
   margin-bottom: calc(var(--spacer) * 2);
   text-transform: lowercase;
 }
+
+.tagLine span {
+  background: var(--brand-gradient);
+  padding: 0 calc(var(--spacer) / 6);
+  line-height: var(--line-height);
+}

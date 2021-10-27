@@ -26,9 +26,9 @@ export default function Header(): ReactElement {
     <div className={styles.container}>
       <DeltadaoText className={styles.logoText} />
       <DataXChange className={styles.dataXChange} />
-      <p className={styles.tagLine}>
+      <h1 className={styles.tagLine}>
         {boxes.map((box: { title: string }, i: number) => (
-          <>
+          <span key={i}>
             {box.title}
             {i === boxes.length - 1 ? (
               ` ${desc}`
@@ -38,9 +38,9 @@ export default function Header(): ReactElement {
                 <br />
               </>
             )}
-          </>
+          </span>
         ))}
-      </p>
+      </h1>
     </div>
   )
 }
