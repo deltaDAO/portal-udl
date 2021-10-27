@@ -1,23 +1,18 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import AssetList from '../organisms/AssetList'
-import Button from '../atoms/Button'
-import Bookmarks from '../molecules/Bookmarks'
-import {
-  generateBaseQuery,
-  getFilterTerm,
-  queryMetadata
-} from '../../utils/aquarius'
-import Permission from '../organisms/Permission'
-import { getHighestLiquidityDatatokens } from '../../utils/subgraph'
+import AssetList from '../../organisms/AssetList'
+import Button from '../../atoms/Button'
+import { generateBaseQuery, queryMetadata } from '../../../utils/aquarius'
+import Permission from '../../organisms/Permission'
 import { DDO, Logger } from '@oceanprotocol/lib'
-import { useUserPreferences } from '../../providers/UserPreferences'
-import styles from './Home.module.css'
-import { useIsMounted } from '../../hooks/useIsMounted'
-import { useCancelToken } from '../../hooks/useCancelToken'
-import { SearchQuery } from '../../models/aquarius/SearchQuery'
-import { SortOptions, SortTermOptions } from '../../models/SortAndFilters'
-import { BaseQueryParams } from '../../models/aquarius/BaseQueryParams'
-import { PagedAssets } from '../../models/PagedAssets'
+import { useUserPreferences } from '../../../providers/UserPreferences'
+import styles from './index.module.css'
+import { useIsMounted } from '../../../hooks/useIsMounted'
+import { useCancelToken } from '../../../hooks/useCancelToken'
+import { SearchQuery } from '../../../models/aquarius/SearchQuery'
+import { SortOptions, SortTermOptions } from '../../../models/SortAndFilters'
+import { BaseQueryParams } from '../../../models/aquarius/BaseQueryParams'
+import { PagedAssets } from '../../../models/PagedAssets'
+import Header from './Header'
 
 function sortElements(items: DDO[], sorted: string[]) {
   items.sort(function (a, b) {
@@ -107,25 +102,23 @@ export default function HomePage(): ReactElement {
   }, [chainIds])
 
   return (
-    <Permission eventType="browse">
-      <>
-        <section className={styles.section}>
-          <h3>Bookmarks</h3>
-          <Bookmarks />
-        </section>
-
-        {queryLatest && (
-          <SectionQueryResult
-            title="Recently Published"
-            query={queryLatest}
-            action={
-              <Button style="text" to="/search?sort=created&sortOrder=desc">
-                All data sets and algorithms →
-              </Button>
-            }
-          />
-        )}
-      </>
-    </Permission>
+    <>
+      <Header />
+      <Permission eventType="browse">
+        <>
+          {queryLatest && (
+            <SectionQueryResult
+              title="Recently Published"
+              query={queryLatest}
+              action={
+                <Button style="text" to="/search?sort=created&sortOrder=desc">
+                  All data sets and algorithms →
+                </Button>
+              }
+            />
+          )}
+        </>
+      </Permission>
+    </>
   )
 }

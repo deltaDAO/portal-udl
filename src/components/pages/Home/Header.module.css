@@ -1,0 +1,44 @@
+.container {
+  height: 100vh;
+}
+
+.gradient {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(
+    200deg,
+    var(--brand-pink) -15%,
+    var(--brand-violet) 20%,
+    rgba(113, 0, 243, 0) 65% /* brand-purple transparent */
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -10;
+}
+
+.logoText {
+  margin: var(--spacer) auto;
+  max-width: 80%;
+}
+
+.dataXChange {
+  max-width: 50%;
+}
+
+.dataXChange div[class*='conic'] {
+  width: 100%;
+  height: 100%;
+  background-image: conic-gradient(
+    from 180deg,
+    var(--brand-pink),
+    var(--brand-violet)
+  );
+}
+
+.tagLine {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-heavy);
+  color: var(--font-color-heading);
+  margin-top: calc(var(--spacer) * 4);
+}
