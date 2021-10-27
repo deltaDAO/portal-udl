@@ -41,7 +41,6 @@ export default function Header(): ReactElement {
           </>
         ))}
       </p>
-      <Boxes />
     </div>
   )
 }

@@ -13,6 +13,7 @@ import { SortOptions, SortTermOptions } from '../../../models/SortAndFilters'
 import { BaseQueryParams } from '../../../models/aquarius/BaseQueryParams'
 import { PagedAssets } from '../../../models/PagedAssets'
 import Header from './Header'
+import Boxes from './Boxes'
 
 function sortElements(items: DDO[], sorted: string[]) {
   items.sort(function (a, b) {
@@ -92,7 +93,7 @@ export default function HomePage(): ReactElement {
   useEffect(() => {
     const baseParams = {
       chainIds: chainIds,
-      esPaginationOptions: { size: 9 },
+      esPaginationOptions: { size: 3 },
       sortOptions: {
         sortBy: SortTermOptions.Created
       } as SortOptions
@@ -104,6 +105,7 @@ export default function HomePage(): ReactElement {
   return (
     <>
       <Header />
+      <Boxes />
       <Permission eventType="browse">
         <>
           {queryLatest && (

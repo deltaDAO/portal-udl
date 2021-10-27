@@ -1,7 +1,3 @@
-.container {
-  height: 100vh;
-}
-
 .logoText {
   margin: var(--spacer) auto;
   max-width: 80%;
