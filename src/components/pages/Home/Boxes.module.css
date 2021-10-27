@@ -1,0 +1,25 @@
+.box {
+  max-width: 40rem;
+  height: 100%;
+  background-color: var(--background-content);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: calc(var(--spacer) / 2);
+}
+
+.box h3 {
+  text-transform: lowercase;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc(var(--spacer) / 2);
+}
+
+@media screen and (min-width: 25rem) {
+  .list {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: var(--spacer);
+  }
+}

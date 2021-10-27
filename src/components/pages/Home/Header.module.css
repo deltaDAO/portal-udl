@@ -2,21 +2,6 @@
   height: 100vh;
 }
 
-.gradient {
-  height: 100vh;
-  width: 100%;
-  background: linear-gradient(
-    200deg,
-    var(--brand-pink) -15%,
-    var(--brand-violet) 20%,
-    rgba(113, 0, 243, 0) 65% /* brand-purple transparent */
-  );
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -10;
-}
-
 .logoText {
   margin: var(--spacer) auto;
   max-width: 80%;
@@ -41,4 +26,6 @@
   font-weight: var(--font-weight-heavy);
   color: var(--font-color-heading);
   margin-top: calc(var(--spacer) * 4);
+  margin-bottom: calc(var(--spacer) * 2);
+  text-transform: lowercase;
 }

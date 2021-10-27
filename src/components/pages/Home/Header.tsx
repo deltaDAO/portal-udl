@@ -2,20 +2,46 @@ import React, { ReactElement } from 'react'
 import styles from './Header.module.css'
 import { ReactComponent as DataXChange } from '../../../images/dataxchange.svg'
 import { ReactComponent as DeltadaoText } from '../../../images/deltaDAO_logo_text.svg'
+import Boxes from './Boxes'
+import { graphql, useStaticQuery } from 'gatsby'
+
+const contentQuery = graphql`
+  query TaglineQuery {
+    file(relativePath: { eq: "pages/home/intro.json" }) {
+      childHomeJson {
+        desc
+        boxes {
+          title
+        }
+      }
+    }
+  }
+`
 
 export default function Header(): ReactElement {
+  const data = useStaticQuery(contentQuery)
+  const { boxes, desc } = data.file.childHomeJson
+
   return (
     <div className={styles.container}>
-      <div className={styles.gradient} />
       <DeltadaoText className={styles.logoText} />
       <DataXChange className={styles.dataXChange} />
       <p className={styles.tagLine}>
-        privacy preserving,
-        <br />
-        self-sovereign,
-        <br />
-        decentralized data exchange
+        {boxes.map((box: { title: string }, i: number) => (
+          <>
+            {box.title}
+            {i === boxes.length - 1 ? (
+              ` ${desc}`
+            ) : (
+              <>
+                ,
+                <br />
+              </>
+            )}
+          </>
+        ))}
       </p>
+      <Boxes />
     </div>
   )
 }
