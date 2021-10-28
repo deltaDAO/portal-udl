@@ -12,8 +12,12 @@
         "link": "/publish"
       },
       {
-        "name": "Profile",
+        "name": "Account",
         "link": "/profile"
+      },
+      {
+        "name": "Browse",
+        "link": "/search"
       }
     ],
     "warning": {
