@@ -10,6 +10,7 @@
 .dataXChange div[class*='conic'] {
   width: 100%;
   height: 100%;
+  background: var(--brand-pink);
   background-image: conic-gradient(
     from 180deg,
     var(--brand-pink),
