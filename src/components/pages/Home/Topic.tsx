@@ -34,7 +34,7 @@ export default function Topic({
         <h3>{topic.title}</h3>
         <Markdown text={topic.content} />
         {topic.cta && (
-          <Button to={topic.cta.action} style="primary">
+          <Button to={topic.cta.action} style="primary" target="_blank">
             {topic.cta.call}
           </Button>
         )}
