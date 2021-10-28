@@ -102,8 +102,6 @@ export function generateBaseQuery(
         SortDirectionOptions.Descending
     }
 
-  generatedQuery.sort = undefined
-
   return generatedQuery
 }
 
