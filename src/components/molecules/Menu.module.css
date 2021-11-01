@@ -106,6 +106,24 @@
   font-size: var(--font-size-large);
   position: relative;
   z-index: 1;
+  padding: calc(var(--spacer) / 4);
+}
+
+.link:after {
+  content: '';
+  position: absolute;
+  background-color: var(--color-primary);
+  height: 2px;
+  left: 1px;
+  right: 1px;
+  bottom: 0;
+  -webkit-transform-origin: 0 50%;
+  transform-origin: 0 50%;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
 }
 
 .actions input,
@@ -130,24 +148,23 @@
   color: var(--brand-grey-dimmed);
 }
 
-.link:hover,
-.link:focus,
-.link:active {
-  background: var(--brand-gradient);
-}
-
 .link[aria-current],
 .link[aria-current]:hover,
 .link[aria-current]:focus {
   color: var(--brand-grey-dimmed);
 }
 
-.link:last-child {
-  padding-right: 0;
+.link:hover:after,
+.link:focus:after {
+  transform: scaleX(1);
 }
 
 .logo svg {
   margin-right: calc(var(--spacer) / 3);
+}
+
+.navigation li:last-child .link {
+  padding-right: 0;
 }
 
 .actions button {
