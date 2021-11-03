@@ -95,14 +95,11 @@ export function generateBaseQuery(
     }
   } as SearchQuery
 
-  if (baseQueryParams.sortOptions !== undefined)
-    generatedQuery.sort = {
-      [baseQueryParams.sortOptions.sortBy]:
-        baseQueryParams.sortOptions.sortDirection ||
-        SortDirectionOptions.Descending
-    }
-
-  generatedQuery.sort = undefined
+  generatedQuery.sort = {
+    [baseQueryParams.sortOptions.sortBy || SortTermOptions.Created]:
+      baseQueryParams.sortOptions.sortDirection ||
+      SortDirectionOptions.Descending
+  }
 
   return generatedQuery
 }
