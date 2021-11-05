@@ -7,7 +7,7 @@ import styles from './Topic.module.css'
 const cx = classNames.bind(styles)
 
 export type TTopic = {
-  svg: string
+  svg: 'education' | 'data_economy'
   title: string
   content: string
   cta?: {
