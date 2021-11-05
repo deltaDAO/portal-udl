@@ -17,5 +17,11 @@
     //"baseUrl": "./src"
   },
   "exclude": ["node_modules", "public", ".cache", "*.js"],
-  "include": ["./src/**/*", "./tests/**/*", "./app.config.js"]
+  "include": [
+    "./src/**/*",
+    "./tests/**/*",
+    "./app.config.js",
+    "./address.config.js",
+    "./chains.config.ts"
+  ]
 }
