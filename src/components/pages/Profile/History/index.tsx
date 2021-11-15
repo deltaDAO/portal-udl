@@ -9,13 +9,18 @@ import { useLocation } from '@reach/router'
 import styles from './index.module.css'
 import OceanProvider from '../../../../providers/Ocean'
 import { useWeb3 } from '../../../../providers/Web3'
+import { useSiteMetadata } from '../../../../hooks/useSiteMetadata'
 
 interface HistoryTab {
   title: string
   content: JSX.Element
 }
 
-function getTabs(accountId: string, userAccountId: string): HistoryTab[] {
+function getTabs(
+  accountId: string,
+  userAccountId: string,
+  allowDynamicPricing: boolean
+): HistoryTab[] {
   const defaultTabs: HistoryTab[] = [
     {
       title: 'Published',
@@ -34,6 +39,11 @@ function getTabs(accountId: string, userAccountId: string): HistoryTab[] {
       content: <Downloads accountId={accountId} />
     }
   ]
+
+  const filteredTabs = defaultTabs.filter(
+    (tab) => !allowDynamicPricing && !tab.title.includes('Pool')
+  )
+
   const computeTab: HistoryTab = {
     title: 'Compute Jobs',
     content: (
@@ -43,9 +53,9 @@ function getTabs(accountId: string, userAccountId: string): HistoryTab[] {
     )
   }
   if (accountId === userAccountId) {
-    defaultTabs.push(computeTab)
+    filteredTabs.push(computeTab)
   }
-  return defaultTabs
+  return filteredTabs
 }
 
 export default function HistoryPage({
@@ -55,10 +65,14 @@ export default function HistoryPage({
 }): ReactElement {
   const { accountId } = useWeb3()
   const location = useLocation()
-
+  const { allowDynamicPricing } = useSiteMetadata().appConfig
   const url = new URL(location.href)
   const defaultTab = url.searchParams.get('defaultTab')
-  const tabs = getTabs(accountIdentifier, accountId)
+  const tabs = getTabs(
+    accountIdentifier,
+    accountId,
+    allowDynamicPricing === 'true'
+  )
 
   let defaultTabIndex = 0
   defaultTab === 'ComputeJobs' ? (defaultTabIndex = 4) : (defaultTabIndex = 0)

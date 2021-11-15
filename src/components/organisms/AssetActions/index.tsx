@@ -17,6 +17,7 @@ import axios from 'axios'
 import { getOceanConfig } from '../../../utils/ocean'
 import { useCancelToken } from '../../../hooks/useCancelToken'
 import { useIsMounted } from '../../../hooks/useIsMounted'
+import { useSiteMetadata } from '../../../hooks/useSiteMetadata'
 
 export default function AssetActions(): ReactElement {
   const { accountId, balance } = useWeb3()
@@ -33,6 +34,9 @@ export default function AssetActions(): ReactElement {
   const [consumableFeedback, setConsumableFeedback] = useState<string>('')
   const newCancelToken = useCancelToken()
   const isMounted = useIsMounted()
+
+  const { allowDynamicPricing } = useSiteMetadata().appConfig
+
   useEffect(() => {
     if (!ddo || !accountId || !ocean || !isAssetNetwork) return
 
@@ -129,6 +133,7 @@ export default function AssetActions(): ReactElement {
   ]
 
   price?.type === 'pool' &&
+    allowDynamicPricing === 'true' &&
     tabs.push(
       {
         title: 'Pool',

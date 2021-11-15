@@ -3,20 +3,23 @@ import addressConfig from '../../address.config'
 
 export interface UseAddressConfig {
   whitelists: {
-    'publicKey.owner': string[]
-    dataToken: string[]
+    'publicKey.owner'?: string[]
+    dataToken?: string[]
   }
   isAddressWhitelisted: (address: string) => boolean
   isDDOWhitelisted: (ddo: DDO) => boolean
 }
 
 export function useAddressConfig(): UseAddressConfig {
-  const { whitelists } = addressConfig
+  const { whitelists }: { whitelists: UseAddressConfig['whitelists'] } =
+    addressConfig
 
   const isAddressWhitelisted = function (
     address: string,
     field?: keyof UseAddressConfig['whitelists']
   ) {
+    if (Object.entries(whitelists).length < 1) return true
+
     return field
       ? whitelists[field].some(
           (whitelistedAddress) => whitelistedAddress === address

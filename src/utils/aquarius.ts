@@ -50,10 +50,12 @@ export function getWhitelistShould(): // eslint-disable-next-line camelcase
 { should: FilterTerm[]; minimum_should_match: 1 } | undefined {
   const { whitelists } = addressConfig
 
+  if (Object.entries(whitelists).length < 1) return undefined
+
   const whitelistFilterTerms = Object.entries(whitelists)
-    .filter(([field, whitelist]) => whitelist.length > 0)
-    .map(([field, whitelist]) =>
-      whitelist.map((address) => getFilterTerm(field, address, 'match'))
+    .filter(([field, whitelist]: [string, string[]]) => whitelist.length > 0)
+    .map(([field, whitelist]: [string, string[]]) =>
+      whitelist.map((address: string) => getFilterTerm(field, address, 'match'))
     )
     .reduce((prev, cur) => prev.concat(cur))
 

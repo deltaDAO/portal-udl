@@ -9,17 +9,19 @@ import useDarkMode from 'use-dark-mode'
 import Appearance from './Appearance'
 import { darkModeConfig } from '../../../../app.config'
 import TokenApproval from './TokenApproval'
+import { useSiteMetadata } from '../../../hooks/useSiteMetadata'
 
 export default function UserPreferences(): ReactElement {
   // Calling this here because <Style /> is not mounted on first load
   const darkMode = useDarkMode(false, darkModeConfig)
+  const { allowDynamicPricing } = useSiteMetadata().appConfig
 
   return (
     <Tooltip
       content={
         <ul className={styles.preferencesDetails}>
           <Currency />
-          <TokenApproval />
+          {allowDynamicPricing === 'true' && <TokenApproval />}
           <Appearance darkMode={darkMode} />
           <Debug />
         </ul>
