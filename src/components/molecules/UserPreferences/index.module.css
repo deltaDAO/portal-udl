@@ -2,7 +2,6 @@
   padding: calc(var(--spacer) / 6) calc(var(--spacer) / 3);
   cursor: pointer;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
   background-color: var(--background-content);
   white-space: nowrap;
 }

@@ -9,7 +9,6 @@
   background: var(--background-content);
   padding: calc(var(--spacer) / 3);
   margin: 0;
-  border-radius: var(--border-radius);
   transition: 0.2s ease-out;
   height: 43px;
   min-width: 0;
