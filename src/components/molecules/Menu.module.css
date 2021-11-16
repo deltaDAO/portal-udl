@@ -80,7 +80,7 @@
 .link:active,
 .link:focus {
   background: var(--brand-purple);
-  color: #86b7ce;
+  color: var(--brand-steel-blue);
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }

@@ -5,7 +5,7 @@
 
 .button {
   color: var(--color-secondary);
-  cursor: pointer;
+  pointer-events: none;
   background: var(--background-content);
   border: none;
   box-shadow: none;
@@ -64,6 +64,8 @@
   }
 
   .button {
+    cursor: pointer;
+    pointer-events: all;
     width: auto;
     left: auto;
     background: none;

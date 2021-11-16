@@ -16,22 +16,15 @@
 }
 
 .button,
+.button.initial,
 .address {
-  color: var(--brand-grey-lighter);
-}
-
-.button:hover .address {
-  color: var(--brand-grey-dimmed);
+  color: var(--brand-white);
 }
 
 .button:hover,
 .button:focus {
   transform: none;
   outline: 0;
-}
-
-.button.initial {
-  color: var(--color-primary);
 }
 
 .button.initial span {
