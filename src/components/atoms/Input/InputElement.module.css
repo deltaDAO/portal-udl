@@ -265,6 +265,11 @@ input[type='range']::-moz-range-track {
   border: none;
 }
 
+/* remove default style for webkit shadow DOM elements */
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
 /* Size modifiers */
 
 .mini,
