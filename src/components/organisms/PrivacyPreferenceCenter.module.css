@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background: var(--background-body-transparent);
+  background: var(--brand-white);
   backdrop-filter: blur(4px);
   padding: calc(var(--spacer) / 2);
   min-height: 100vh;

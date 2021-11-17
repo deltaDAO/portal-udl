@@ -1,3 +1,16 @@
+const chains = require('./chains.config')
+const findChainIds = (network) => {
+  const defaultChainIds = []
+  const supportedChainIds = []
+  for (const [key, value] of Object.entries(network)) {
+    const { isDefault, networkId } = value
+    supportedChainIds.push(networkId)
+
+    if (isDefault) defaultChainIds.push(networkId)
+  }
+  return { defaultChainIds, supportedChainIds }
+}
+
 module.exports = {
   // URI of single metadata cache instance for all networks.
   // While ocean.js includes this value for each network as part of its ConfigHelper,
@@ -10,10 +23,10 @@ module.exports = {
 
   // List of chainIds which metadata cache queries will return by default.
   // This preselects the Chains user preferences.
-  chainIds: [202100],
+  chainIds: findChainIds(chains).defaultChainIds,
 
   // List of all supported chainIds. Used to populate the Chains user preferences list.
-  chainIdsSupported: [2021000],
+  chainIdsSupported: findChainIds(chains).supportedChainIds,
 
   rbacUrl: process.env.GATSBY_RBAC_URL,
 
