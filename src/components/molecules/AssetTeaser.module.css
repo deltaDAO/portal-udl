@@ -60,6 +60,7 @@
   right: calc(var(--spacer) / 3);
   width: auto;
   font-size: var(--font-size-mini);
+  color: var(--brand-black);
 }
 
 .network {
@@ -67,4 +68,5 @@
   position: absolute;
   right: calc(var(--spacer) / 3);
   bottom: calc(var(--spacer) / 3);
+  color: var(--brand-black);
 }
