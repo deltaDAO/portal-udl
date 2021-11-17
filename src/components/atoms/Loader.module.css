@@ -11,7 +11,7 @@
   height: 1.2rem;
   border-radius: 50%;
   border: 2px solid var(--brand-purple);
-  border-top-color: var(--brand-violet);
+  border-top-color: var(--brand-magenta);
   animation: loader 0.6s linear infinite;
 }
 
