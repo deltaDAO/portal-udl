@@ -18,16 +18,6 @@
   min-width: 100px;
 }
 
-.tab:first-child {
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
-}
-
-.tab:last-child {
-  border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
-}
-
 .tab[aria-selected='true'] {
   background-color: var(--font-color-heading);
   color: var(--background-body);
