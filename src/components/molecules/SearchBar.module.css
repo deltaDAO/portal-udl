@@ -5,7 +5,7 @@
 
 .button {
   color: var(--color-secondary);
-  cursor: pointer;
+  pointer-events: none;
   background: var(--background-content);
   border: none;
   box-shadow: none;
@@ -17,7 +17,6 @@
   left: 1px;
   top: 1px;
   bottom: 1px;
-  z-index: -1;
 }
 
 .button:hover,
@@ -27,6 +26,7 @@
 
 .input {
   background-color: transparent;
+  color: var(--brand-white);
   height: 36px;
   margin: 0;
   outline: 0;
@@ -38,7 +38,7 @@
 .input:focus {
   width: calc(100% - var(--spacer));
   background-color: var(--background-content);
-  border-color: var(--brand-grey-lighter);
+  color: var(--brand-black);
   position: fixed;
   left: calc(var(--spacer) / 2);
   right: 0;
@@ -46,15 +46,15 @@
 }
 
 .input::placeholder {
-  color: var(--brand-grey-lighter);
+  color: var(--brand-white);
   opacity: 1;
 }
 
 .input:focus::placeholder {
-  color: var(--font-color-text);
+  color: var(--brand-dark-grey);
 }
 
-@media screen and (min-width: 78rem) {
+@media screen and (min-width: 60rem) {
   .input,
   .input:focus {
     width: auto;
@@ -64,6 +64,8 @@
   }
 
   .button {
+    cursor: pointer;
+    pointer-events: all;
     width: auto;
     left: auto;
     background: none;
@@ -79,4 +81,8 @@
   transition: 0.2s ease-out;
   width: var(--font-size-h5);
   height: var(--font-size-h5);
+}
+
+.search:focus-within .searchIcon {
+  fill: black;
 }

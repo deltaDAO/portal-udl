@@ -1,9 +1,9 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { ToastContainer } from 'react-toastify'
 
-import '@fontsource/overpass/400.css'
-import '@fontsource/overpass/700.css'
-import '@fontsource/overpass/900.css'
+import '@fontsource/open-sans/300.css'
+import '@fontsource/open-sans/500.css'
+import '@fontsource/open-sans/800.css'
 import '@fontsource/overpass-mono'
 import '../global/styles.css'
 

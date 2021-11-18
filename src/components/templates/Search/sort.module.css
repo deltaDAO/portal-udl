@@ -1,9 +1,7 @@
 .sortList {
-  padding: 0 calc(var(--spacer) / 10);
+  padding: calc(var(--spacer) / 5);
   display: flex;
   align-items: center;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
   background: var(--background-content);
   overflow-y: auto;
 }
@@ -22,7 +20,8 @@
   margin-right: calc(var(--spacer) / 1.5);
   text-transform: uppercase;
   color: var(--color-secondary);
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
 }
 
 .sorted {
@@ -32,7 +31,7 @@
   color: var(--color-secondary);
   text-transform: capitalize;
   border-radius: 0;
-  font-weight: var(--font-weight-base);
+  font-size: var(--font-size-base);
   background: var(--background-content);
   box-shadow: none;
 }

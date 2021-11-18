@@ -18,7 +18,10 @@ import { useSiteMetadata } from '../../../../hooks/useSiteMetadata'
 import FormActions from './FormActions'
 import { useCancelToken } from '../../../../hooks/useCancelToken'
 import { BaseQueryParams } from '../../../../models/aquarius/BaseQueryParams'
-import { SortTermOptions } from '../../../../models/SortAndFilters'
+import {
+  SortDirectionOptions,
+  SortTermOptions
+} from '../../../../models/SortAndFilters'
 
 export default function FormEditComputeDataset({
   data,
@@ -42,7 +45,10 @@ export default function FormEditComputeDataset({
   ): Promise<AssetSelectionAsset[]> {
     const baseParams = {
       chainIds: [ddo.chainId],
-      sort: { sortBy: SortTermOptions.Created },
+      sortOptions: {
+        sortBy: SortTermOptions.Created,
+        sortDirection: SortDirectionOptions.Descending
+      },
       filters: [getFilterTerm('service.attributes.main.type', 'algorithm')]
     } as BaseQueryParams
 

@@ -53,7 +53,7 @@
 }
 
 .table + div [class*='rdt_Pagination'] button:hover:not(:disabled) svg {
-  fill: var(--brand-pink);
+  fill: var(--brand-steel-blue);
 }
 
 .table + div [class*='rdt_Pagination'] button[aria-label='First Page'],

@@ -24,8 +24,8 @@ import styles from './Graph.module.css'
 declare type GraphType = 'liquidity' | 'price'
 
 // Chart.js global defaults
-defaults.global.defaultFontFamily = `'Overpass', -apple-system, BlinkMacSystemFont,
-'Segoe UI', Helvetica, Arial, sans-serif`
+defaults.global.defaultFontFamily = `'Open Sans', -apple-system, BlinkMacSystemFont,
+'Segoe UI', 'Trebuchet MS', sans-serif`
 defaults.global.animation = { easing: 'easeInOutQuart', duration: 1000 }
 
 const REFETCH_INTERVAL = 10000

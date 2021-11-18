@@ -20,5 +20,5 @@
 .link:focus,
 .link:hover *,
 .link:focus * {
-  color: var(--brand-pink);
+  color: var(--brand-steel-blue);
 }

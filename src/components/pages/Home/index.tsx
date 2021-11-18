@@ -9,7 +9,11 @@ import styles from './index.module.css'
 import { useIsMounted } from '../../../hooks/useIsMounted'
 import { useCancelToken } from '../../../hooks/useCancelToken'
 import { SearchQuery } from '../../../models/aquarius/SearchQuery'
-import { SortOptions, SortTermOptions } from '../../../models/SortAndFilters'
+import {
+  SortDirectionOptions,
+  SortOptions,
+  SortTermOptions
+} from '../../../models/SortAndFilters'
 import { BaseQueryParams } from '../../../models/aquarius/BaseQueryParams'
 import { PagedAssets } from '../../../models/PagedAssets'
 import Header from './Header'
@@ -125,8 +129,9 @@ export default function HomePage(): ReactElement {
       chainIds: chainIds,
       esPaginationOptions: { size: 3 },
       sortOptions: {
-        sortBy: SortTermOptions.Created
-      } as SortOptions
+        sortBy: SortTermOptions.Created,
+        sortDirection: SortDirectionOptions.Descending
+      }
     } as BaseQueryParams
 
     setQueryLatest(generateBaseQuery(baseParams))

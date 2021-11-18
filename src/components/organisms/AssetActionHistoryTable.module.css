@@ -20,10 +20,6 @@
   cursor: pointer;
 }
 
-.title:hover .toggle {
-  color: var(--color-primary);
-}
-
 .title + div {
   margin-top: calc(var(--spacer) / 3);
 }

@@ -5,17 +5,13 @@
 
 .link {
   composes: box from '../atoms/Box.module.css';
-  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
   height: 100%;
   color: var(--color-secondary);
   position: relative;
   /* for sticking footer to bottom */
   display: flex;
   flex-direction: column;
-}
-
-.algorithm .link {
-  background-color: var(--background-body);
 }
 
 .content {
@@ -28,6 +24,8 @@
 
 .content p {
   margin-bottom: calc(var(--spacer) / 4);
+  color: var(--font-color-text);
+  font-weight: var(--font-weight-base);
 }
 
 .title {
@@ -62,6 +60,7 @@
   right: calc(var(--spacer) / 3);
   width: auto;
   font-size: var(--font-size-mini);
+  color: var(--brand-black);
 }
 
 .network {
@@ -69,4 +68,5 @@
   position: absolute;
   right: calc(var(--spacer) / 3);
   bottom: calc(var(--spacer) / 3);
+  color: var(--brand-black);
 }

@@ -4,7 +4,6 @@
   font-size: var(--font-size-small);
   text-transform: uppercase;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
   padding: calc(var(--spacer) / 6) calc(var(--spacer) / 3);
   white-space: nowrap;
   background: var(--background-content);
@@ -17,22 +16,15 @@
 }
 
 .button,
+.button.initial,
 .address {
-  color: var(--brand-grey-lighter);
-}
-
-.button:hover .address {
-  color: var(--brand-grey-dimmed);
+  color: var(--brand-white);
 }
 
 .button:hover,
 .button:focus {
   transform: none;
   outline: 0;
-}
-
-.button.initial {
-  color: var(--color-primary);
 }
 
 .button.initial span {
