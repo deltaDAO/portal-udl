@@ -17,7 +17,7 @@
 
 .logoWrap::before {
   content: '+';
-  color: var(--color-secondary);
+  color: var(--color-primary);
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-base);
   font-size: 1.25em;
@@ -33,14 +33,21 @@
   display: inline-block;
   margin-bottom: -0.35em;
   border-radius: 50%;
-  border: 0.065rem solid var(--color-secondary);
+  border: 0.065rem solid var(--color-primary);
   margin-right: calc(var(--spacer) / 10);
   transition: 0.2s ease-out;
 }
 
 .button:hover .logoWrap::before,
-.button:focus .logoWrap::before {
-  color: var(--color-secondary);
+.button:hover .text,
+.button:focus .logoWrap::before,
+.button:focus .text {
+  color: var(--font-color-text);
+}
+
+.button:hover .logo,
+.button:focus .logo {
+  border-color: var(--font-color-text);
 }
 
 .text {

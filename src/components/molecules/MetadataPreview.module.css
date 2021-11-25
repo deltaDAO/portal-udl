@@ -24,7 +24,7 @@
 .previewTitle {
   font-size: var(--font-size-small);
   text-transform: uppercase;
-  color: var(--color-secondary);
+  color: var(--font-color-text);
   margin-bottom: calc(var(--spacer) / 2);
 }
 
@@ -34,7 +34,7 @@
 
 .datatoken {
   margin-bottom: 0;
-  color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 .preview [class*='MetaItem-module--metaItem'] h3 {

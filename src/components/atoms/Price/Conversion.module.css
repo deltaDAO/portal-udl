@@ -2,7 +2,7 @@
   display: inline-block;
   font-size: var(--font-size-small);
   margin-left: calc(var(--spacer) / 6);
-  color: var(--color-secondary);
+  color: var(--font-color-text);
   font-weight: var(--font-weight-base);
 }
 
@@ -12,5 +12,5 @@
 /* fiat currency symbol */
 .conversion strong span {
   font-weight: var(--font-weight-base);
-  color: var(--color-secondary);
+  color: var(--font-color-text);
 }

@@ -13,7 +13,7 @@
 .content button {
   text-transform: none;
   transform: none !important;
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-bold);
 }
 
 .content a:hover,
@@ -32,7 +32,7 @@
 }
 
 .footer {
-  color: var(--brand-grey-light);
+  color: var(--font-color-text);
   font-size: var(--font-size-small);
   text-align: center;
 }
