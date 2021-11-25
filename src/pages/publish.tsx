@@ -11,7 +11,7 @@ export default function PageGatsbyPublish(props: PageProps): ReactElement {
   return (
     <OceanProvider>
       <Page title={title} description={description} uri={props.uri}>
-        <PagePublish content={content} />
+        <PagePublish />
       </Page>
     </OceanProvider>
   )

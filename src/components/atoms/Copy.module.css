@@ -10,7 +10,7 @@
 }
 
 .icon {
-  fill: var(--color-secondary);
+  fill: var(--color-primary);
   transition: 0.15s ease-out;
   width: 10px;
   height: 10px;

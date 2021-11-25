@@ -3,11 +3,16 @@
   height: 100%;
 }
 
+.teaser:hover {
+  transition: 0.2s ease-in-out;
+  box-shadow: 0 6px 17px 0 var(--box-shadow-color);
+}
+
 .link {
   composes: box from '../atoms/Box.module.css';
   font-weight: var(--font-weight-bold);
   height: 100%;
-  color: var(--color-secondary);
+  color: var(--color-primary);
   position: relative;
   /* for sticking footer to bottom */
   display: flex;

@@ -10,7 +10,7 @@
 .required:after {
   content: '*';
   font-size: var(--font-size-base);
-  color: var(--color-secondary);
+  color: var(--color-primary);
   display: inline-block;
   margin-left: 0.1rem;
 }

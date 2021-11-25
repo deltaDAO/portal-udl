@@ -3,7 +3,7 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-small);
   text-transform: uppercase;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--brand-white);
   padding: calc(var(--spacer) / 6) calc(var(--spacer) / 3);
   white-space: nowrap;
   background: var(--background-content);
@@ -40,7 +40,7 @@
 .address {
   display: none;
   text-transform: none;
-  border-right: 1px solid var(--brand-grey-lighter);
+  border-right: 1px solid var(--brand-white);
   padding-right: calc(var(--spacer) / 3);
   padding-left: calc(var(--spacer) / 8);
 }
@@ -58,7 +58,7 @@
 .button svg {
   width: 1em;
   height: 1em;
-  fill: var(--border-color);
+  fill: var(--brand-white);
   display: inline-block;
   vertical-align: middle;
   margin-left: calc(var(--spacer) / 3);

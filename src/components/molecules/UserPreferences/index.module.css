@@ -1,7 +1,7 @@
 .preferences {
   padding: calc(var(--spacer) / 6) calc(var(--spacer) / 3);
   cursor: pointer;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--brand-white);
   background-color: var(--background-content);
   white-space: nowrap;
 }
@@ -19,7 +19,7 @@
 svg.caret {
   width: var(--font-size-small);
   height: var(--font-size-small);
-  fill: var(--border-color);
+  fill: var(--brand-white);
   margin-left: calc(var(--spacer) / 4);
   transition: transform 0.2s ease-out;
   display: none;
@@ -33,7 +33,7 @@ svg.caret {
 }
 
 .icon {
-  fill: var(--brand-grey-light);
+  fill: var(--brand-white);
   transition: 0.2s ease-out;
   width: 1em;
   height: 1em;

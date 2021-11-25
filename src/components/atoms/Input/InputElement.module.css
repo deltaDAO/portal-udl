@@ -25,7 +25,7 @@
 .input::placeholder {
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
-  color: var(--color-secondary);
+  color: var(--font-color-text);
   font-weight: var(--font-weight-base);
   transition: 0.2s ease-out;
   opacity: 0.7;
@@ -117,6 +117,8 @@
   display: inline-block;
   vertical-align: middle;
   margin-top: -2px;
+  border: 1px solid var(--color-primary);
+  background: var(--brand-white);
 }
 
 .radio::after,

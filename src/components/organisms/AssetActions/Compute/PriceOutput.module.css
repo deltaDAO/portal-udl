@@ -8,7 +8,7 @@
   border-bottom: 1px solid var(--border-color);
   padding-bottom: calc(var(--spacer) / 3);
   text-align: center;
-  color: var(--color-secondary);
+  color: var(--font-color-text);
   font-size: var(--font-size-small);
 }
 
@@ -24,7 +24,7 @@
   display: block;
   text-align: right;
   font-size: var(--font-size-mini);
-  color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 .calculation .price {

@@ -51,7 +51,7 @@ button.filter,
 
 .showClear:hover {
   display: inline-flex;
-  color: var(--color-primary);
+  color: var(--font-color-text);
 }
 .showClear {
   display: inline-flex;

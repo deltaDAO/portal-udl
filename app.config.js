@@ -1,15 +1,4 @@
-const chains = require('./chains.config')
-const findChainIds = (network) => {
-  const defaultChainIds = []
-  const supportedChainIds = []
-  for (const [key, value] of Object.entries(network)) {
-    const { isDefault, networkId } = value
-    supportedChainIds.push(networkId)
-
-    if (isDefault) defaultChainIds.push(networkId)
-  }
-  return { defaultChainIds, supportedChainIds }
-}
+const { getDefaultChainIds, getSupportedChainIds } = require('./chains.config')
 
 module.exports = {
   // URI of single metadata cache instance for all networks.
@@ -23,10 +12,10 @@ module.exports = {
 
   // List of chainIds which metadata cache queries will return by default.
   // This preselects the Chains user preferences.
-  chainIds: findChainIds(chains).defaultChainIds,
+  chainIds: getDefaultChainIds(),
 
   // List of all supported chainIds. Used to populate the Chains user preferences list.
-  chainIdsSupported: findChainIds(chains).supportedChainIds,
+  chainIdsSupported: getSupportedChainIds(),
 
   rbacUrl: process.env.GATSBY_RBAC_URL,
 
