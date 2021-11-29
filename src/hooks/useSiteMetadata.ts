@@ -37,6 +37,7 @@ interface UseSiteMetadata {
     displayWarning: boolean
     defaultPrivacyPolicySlug: string
     privacyPreferenceCenter: string
+    portalDDOTag: string
   }
 }
 
@@ -78,6 +79,7 @@ const query = graphql`
           credentialType
           defaultPrivacyPolicySlug
           privacyPreferenceCenter
+          portalDDOTag
         }
       }
     }

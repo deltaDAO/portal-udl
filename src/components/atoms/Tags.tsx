@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import shortid from 'shortid'
 import styles from './Tags.module.css'
+import { useSiteMetadata } from '../../hooks/useSiteMetadata'
 
 declare type TagsProps = {
   items: string[]
@@ -39,12 +40,14 @@ const Tags: React.FC<TagsProps> = ({
   const tags = items.filter((tag) => tag !== '').slice(0, max)
   const shouldShowMore = showMore && remainder > 0
   const classes = className ? `${styles.tags} ${className}` : styles.tags
-
+  const { portalDDOTag } = useSiteMetadata().appConfig
   return (
     <div className={classes}>
-      {tags?.map((tag) => (
-        <Tag tag={tag} noLinks={noLinks} key={shortid.generate()} />
-      ))}
+      {tags
+        ?.filter((tag) => tag !== portalDDOTag)
+        .map((tag) => (
+          <Tag tag={tag} noLinks={noLinks} key={shortid.generate()} />
+        ))}
       {shouldShowMore && (
         <span className={styles.more}>{`+ ${items.length - max} more`}</span>
       )}

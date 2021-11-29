@@ -11,7 +11,6 @@ import { useCancelToken } from '../../../hooks/useCancelToken'
 import { SearchQuery } from '../../../models/aquarius/SearchQuery'
 import {
   SortDirectionOptions,
-  SortOptions,
   SortTermOptions
 } from '../../../models/SortAndFilters'
 import { BaseQueryParams } from '../../../models/aquarius/BaseQueryParams'
