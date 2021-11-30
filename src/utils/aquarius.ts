@@ -9,7 +9,11 @@ import { AssetSelectionAsset } from '../components/molecules/FormFields/AssetSel
 import { PriceList, getAssetsPriceList } from './subgraph'
 import axios, { CancelToken, AxiosResponse } from 'axios'
 import { OrdersData_tokenOrders as OrdersData } from '../@types/apollo/OrdersData'
-import { metadataCacheUri, allowDynamicPricing } from '../../app.config'
+import {
+  metadataCacheUri,
+  allowDynamicPricing,
+  portalDDOTag
+} from '../../app.config'
 import addressConfig from '../../address.config'
 import { PagedAssets } from '../models/PagedAssets'
 import { SearchQuery } from '../models/aquarius/SearchQuery'
@@ -87,6 +91,10 @@ export function generateBaseQuery(
           ...(baseQueryParams.filters || []),
           getFilterTerm('chainId', baseQueryParams.chainIds),
           getFilterTerm('_index', 'ocean'),
+          getFilterTerm(
+            'service.attributes.additionalInformation.tags',
+            portalDDOTag
+          ),
           ...(baseQueryParams.ignorePurgatory
             ? []
             : [getFilterTerm('isInPurgatory', 'false')])

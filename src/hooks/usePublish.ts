@@ -10,6 +10,7 @@ import { publishFeedback } from '../utils/feedback'
 import { useOcean } from '../providers/Ocean'
 import { useWeb3 } from '../providers/Web3'
 import { getOceanConfig } from '../utils/ocean'
+import { portalDDOTag } from '../../app.config'
 
 interface DataTokenOptions {
   cap?: string
@@ -125,9 +126,21 @@ function usePublish(): UsePublish {
 
       Logger.log('services created', services)
 
+      const assetWithPortalTag: Metadata = {
+        ...asset,
+        additionalInformation: {
+          ...asset.additionalInformation,
+          tags: asset.additionalInformation.tags
+            ? asset.additionalInformation.tags.concat([portalDDOTag])
+            : [portalDDOTag]
+        }
+      }
+
+      Logger.log('publishing with metadata', assetWithPortalTag)
+
       const ddo = await ocean.assets
         .create(
-          asset,
+          assetWithPortalTag,
           account,
           services,
           undefined,

@@ -76,5 +76,7 @@ module.exports = {
   // is used to create and show a privacy preference center / cookie banner
   // To learn more about how to configure and use this, please refer to the readme
   privacyPreferenceCenter:
-    process.env.GATSBY_PRIVACY_PREFERENCE_CENTER || 'true'
+    process.env.GATSBY_PRIVACY_PREFERENCE_CENTER || 'true',
+
+  portalDDOTag: process.env.GATSBY_PORTAL_DDO_TAG || 'udlscienceportal'
 }
