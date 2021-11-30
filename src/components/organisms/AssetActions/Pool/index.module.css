@@ -28,7 +28,7 @@
 .title {
   font-size: var(--font-size-base);
   margin-bottom: calc(var(--spacer) / 3);
-  color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 .titleInfo {
@@ -42,7 +42,7 @@
 .update {
   composes: container;
   font-size: var(--font-size-mini);
-  color: var(--color-secondary);
+  color: var(--color-primary);
   text-align: center;
   border-top: 1px solid var(--border-color);
   padding-top: calc(var(--spacer) / 4);

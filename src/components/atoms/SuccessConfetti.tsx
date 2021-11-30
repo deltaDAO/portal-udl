@@ -15,7 +15,7 @@ const confettiConfig = {
   height: '10px',
   perspective: '500px',
   colors: [
-    'var(--brand-pink)',
+    'var(--brand-steel-blue)',
     'var(--brand-purple)',
     'var(--brand-violet)',
     'var(--brand-grey-light)',

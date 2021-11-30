@@ -1,3 +1,5 @@
+const { getDefaultChainIds, getSupportedChainIds } = require('./chains.config')
+
 module.exports = {
   // URI of single metadata cache instance for all networks.
   // While ocean.js includes this value for each network as part of its ConfigHelper,
@@ -10,10 +12,10 @@ module.exports = {
 
   // List of chainIds which metadata cache queries will return by default.
   // This preselects the Chains user preferences.
-  chainIds: [202100],
+  chainIds: getDefaultChainIds(),
 
   // List of all supported chainIds. Used to populate the Chains user preferences list.
-  chainIdsSupported: [2021000],
+  chainIdsSupported: getSupportedChainIds(),
 
   rbacUrl: process.env.GATSBY_RBAC_URL,
 
@@ -55,7 +57,7 @@ module.exports = {
   // Used to show or hide the fixed, dynamic or free price options
   // tab to publishers during the price creation.
   allowFixedPricing: process.env.GATSBY_ALLOW_FIXED_PRICING || 'true',
-  allowDynamicPricing: process.env.GATSBY_ALLOW_DYNAMIC_PRICING || 'true',
+  allowDynamicPricing: process.env.GATSBY_ALLOW_DYNAMIC_PRICING || 'false',
   allowFreePricing: process.env.GATSBY_ALLOW_FREE_PRICING || 'false',
 
   // Used to show or hide advanced settings button in asset details page
@@ -74,5 +76,7 @@ module.exports = {
   // is used to create and show a privacy preference center / cookie banner
   // To learn more about how to configure and use this, please refer to the readme
   privacyPreferenceCenter:
-    process.env.GATSBY_PRIVACY_PREFERENCE_CENTER || 'true'
+    process.env.GATSBY_PRIVACY_PREFERENCE_CENTER || 'true',
+
+  portalDDOTag: process.env.GATSBY_PORTAL_DDO_TAG || 'udlscienceportal'
 }

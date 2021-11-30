@@ -30,7 +30,6 @@ import { useUserPreferences } from '../../../providers/UserPreferences'
 import { Logger, Metadata, MetadataMain } from '@oceanprotocol/lib'
 import { Persist } from '../../atoms/FormikPersist'
 import Debug from './Debug'
-import Alert from '../../atoms/Alert'
 import MetadataFeedback from '../../molecules/MetadataFeedback'
 import { useAccountPurgatory } from '../../../hooks/useAccountPurgatory'
 import { useWeb3 } from '../../../providers/Web3'
@@ -63,11 +62,7 @@ function TabContent({
   )
 }
 
-export default function PublishPage({
-  content
-}: {
-  content: { warning: string }
-}): ReactElement {
+export default function PublishPage(): ReactElement {
   const { debug } = useUserPreferences()
   const { accountId } = useWeb3()
   const { isInPurgatory, purgatoryData } = useAccountPurgatory(accountId)
@@ -275,26 +270,16 @@ export default function PublishPage({
                   }}
                 />
               ) : (
-                <>
-                  <Alert
-                    text={content.warning}
-                    state="info"
-                    className={styles.alert}
-                  />
-
-                  <Tabs
-                    className={styles.tabs}
-                    items={tabs}
-                    handleTabChange={(title) => {
-                      setPublishType(
-                        title.toLowerCase().replace(' ', '') as any
-                      )
-                      title === 'Algorithm'
-                        ? setdatasetInitialValues(values)
-                        : setAlgoInitialValues(values)
-                    }}
-                  />
-                </>
+                <Tabs
+                  className={styles.tabs}
+                  items={tabs}
+                  handleTabChange={(title) => {
+                    setPublishType(title.toLowerCase().replace(' ', '') as any)
+                    title === 'Algorithm'
+                      ? setdatasetInitialValues(values)
+                      : setAlgoInitialValues(values)
+                  }}
+                />
               )}
 
               {debug === true && <Debug values={values} />}

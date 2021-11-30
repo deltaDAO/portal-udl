@@ -25,6 +25,7 @@
   border-right: 1px solid var(--border-color);
   padding-right: calc(var(--spacer) / 3.5);
   margin-right: calc(var(--spacer) / 4);
+  color: var(--brand-black);
 }
 
 .datatoken {
@@ -33,6 +34,7 @@
 }
 
 .byline {
+  color: var(--font-color-text);
   font-size: var(--font-size-small);
 }
 

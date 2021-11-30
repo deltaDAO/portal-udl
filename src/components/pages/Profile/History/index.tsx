@@ -19,31 +19,14 @@ interface HistoryTab {
 function getTabs(
   accountId: string,
   userAccountId: string,
-  allowDynamicPricing: boolean
+  allowDynamicPricing: string
 ): HistoryTab[] {
   const defaultTabs: HistoryTab[] = [
-    {
-      title: 'Published',
-      content: <PublishedList accountId={accountId} />
-    },
-    {
-      title: 'Pool Shares',
-      content: <PoolShares accountId={accountId} />
-    },
-    {
-      title: 'Pool Transactions',
-      content: <PoolTransactions accountId={accountId} />
-    },
     {
       title: 'Downloads',
       content: <Downloads accountId={accountId} />
     }
   ]
-
-  const filteredTabs = defaultTabs.filter(
-    (tab) => !allowDynamicPricing && !tab.title.includes('Pool')
-  )
-
   const computeTab: HistoryTab = {
     title: 'Compute Jobs',
     content: (
@@ -52,10 +35,27 @@ function getTabs(
       </OceanProvider>
     )
   }
-  if (accountId === userAccountId) {
-    filteredTabs.push(computeTab)
+  if (allowDynamicPricing === 'true') {
+    defaultTabs.push(
+      {
+        title: 'Pool Shares',
+        content: <PoolShares accountId={accountId} />
+      },
+      {
+        title: 'Pool Transactions',
+        content: <PoolTransactions accountId={accountId} />
+      }
+    )
   }
-  return filteredTabs
+  if (accountId === userAccountId) {
+    defaultTabs.push(computeTab)
+  }
+  defaultTabs.unshift({
+    title: 'Published',
+    content: <PublishedList accountId={accountId} />
+  })
+
+  return defaultTabs
 }
 
 export default function HistoryPage({
@@ -66,13 +66,10 @@ export default function HistoryPage({
   const { accountId } = useWeb3()
   const location = useLocation()
   const { allowDynamicPricing } = useSiteMetadata().appConfig
+
   const url = new URL(location.href)
   const defaultTab = url.searchParams.get('defaultTab')
-  const tabs = getTabs(
-    accountIdentifier,
-    accountId,
-    allowDynamicPricing === 'true'
-  )
+  const tabs = getTabs(accountIdentifier, accountId, allowDynamicPricing)
 
   let defaultTabIndex = 0
   defaultTab === 'ComputeJobs' ? (defaultTabIndex = 4) : (defaultTabIndex = 0)

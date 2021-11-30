@@ -2,7 +2,8 @@ import { ConfigHelper, ConfigHelperConfig, Logger } from '@oceanprotocol/lib'
 import contractAddresses from '@oceanprotocol/contracts/artifacts/address.json'
 import { AbiItem } from 'web3-utils/types'
 import Web3 from 'web3'
-import chains from '../../chains.config'
+import { chains } from '../../chains.config'
+import { ConfigHelperConfigOverwrite } from '../@types/Chains'
 
 export function getOceanConfig(network: string | number): ConfigHelperConfig {
   const config = new ConfigHelper().getConfig(
@@ -19,8 +20,8 @@ export function getOceanConfig(network: string | number): ConfigHelperConfig {
       : process.env.GATSBY_INFURA_PROJECT_ID
   ) as ConfigHelperConfig
 
-  const configOverwrite = chains.find(
-    (chain) => chain.networkId === config.networkId
+  const configOverwrite = (chains as ConfigHelperConfigOverwrite[]).find(
+    (c) => c.networkId === config.networkId
   )
 
   return configOverwrite

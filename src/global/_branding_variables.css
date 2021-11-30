@@ -1,27 +1,25 @@
 :root {
-  --brand-pink: #00ffff;
-  --brand-purple: #7300f3;
+  --brand-purple: #570d37;
   --brand-violet: #1c47e5;
+  --brand-magenta: #831453;
+  --brand-steel-blue: #3d7a98;
 
   --brand-black: #000000;
 
-  --brand-grey-darker: #00000f;
-  --brand-grey-dark: #30303f;
-  --brand-grey: #41414f;
-  --brand-grey-light: #82828f;
-  --brand-grey-lighter: #e3e3ef;
-  --brand-grey-dimmed: #f6f6ff;
+  --brand-grey-darker: #201f1f;
+  --brand-grey-dark: #303030;
+  --brand-grey: #41474e;
+  --brand-grey-light: #8b98a9;
+  --brand-grey-lighter: #ebebeb;
+  --brand-grey-dimmed: #f7f7f7;
 
-  --color-primary: #00ffff;
+  --color-primary: #831453;
 
   --brand-gradient: linear-gradient(
-    to right top,
-    #7300f3 0%,
-    #1c47e5 40%,
-    #00ffff 110%
+    to right,
+    #6d1145 0%,
+    #831453 28%,
+    #831453 72%,
+    #6d1145 100%
   );
-}
-
-.dark {
-  --background-body-transparent: rgba(00, 00, 00, 0.9);
 }

@@ -9,37 +9,52 @@ import styles from './index.module.css'
 import { useIsMounted } from '../../../hooks/useIsMounted'
 import { useCancelToken } from '../../../hooks/useCancelToken'
 import { SearchQuery } from '../../../models/aquarius/SearchQuery'
-import { SortOptions, SortTermOptions } from '../../../models/SortAndFilters'
+import {
+  SortDirectionOptions,
+  SortTermOptions
+} from '../../../models/SortAndFilters'
 import { BaseQueryParams } from '../../../models/aquarius/BaseQueryParams'
 import { PagedAssets } from '../../../models/PagedAssets'
 import Header from './Header'
-import Boxes from './Boxes'
-import Topic, { TTopic } from './Topic'
 import { graphql, useStaticQuery } from 'gatsby'
-import { ReactComponent as Education } from '../../../images/education.svg'
-import { ReactComponent as DataEconomy } from '../../../images/data_economy.svg'
+import Markdown from '../../atoms/Markdown'
+import Intro from './Intro'
 
-const topicQuery = graphql`
-  query TopicQuery {
-    file(relativePath: { eq: "pages/home/topics.json" }) {
+const contentQuery = graphql`
+  query ContentQuery {
+    intro: file(relativePath: { eq: "pages/home/intro.json" }) {
+      childHomeJson {
+        title
+        tagline
+      }
+    }
+    header: file(relativePath: { eq: "pages/home/header.json" }) {
+      childHomeJson {
+        title
+        content
+      }
+    }
+    image: file(relativePath: { eq: "microscope.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    topics: file(relativePath: { eq: "pages/home/topics.json" }) {
       childHomeJson {
         topics {
-          svg
           title
           content
-          cta {
-            call
-            action
-          }
         }
       }
     }
   }
 `
 
-const topicSvgMap = {
-  education: <Education />,
-  data_economy: <DataEconomy />
+interface TTopic {
+  title: string
+  content: string
 }
 
 function sortElements(items: DDO[], sorted: string[]) {
@@ -117,16 +132,20 @@ export default function HomePage(): ReactElement {
   const [queryLatest, setQueryLatest] = useState<SearchQuery>()
   const { chainIds } = useUserPreferences()
 
-  const data = useStaticQuery(topicQuery)
-  const { topics } = data.file.childHomeJson
+  const data = useStaticQuery(contentQuery)
+  const { topics } = data.topics.childHomeJson
+  const intro = data.intro.childHomeJson
+  const header = data.header.childHomeJson
+  const image = data.image.childImageSharp.fluid
 
   useEffect(() => {
     const baseParams = {
       chainIds: chainIds,
       esPaginationOptions: { size: 3 },
       sortOptions: {
-        sortBy: SortTermOptions.Created
-      } as SortOptions
+        sortBy: SortTermOptions.Created,
+        sortDirection: SortDirectionOptions.Descending
+      }
     } as BaseQueryParams
 
     setQueryLatest(generateBaseQuery(baseParams))
@@ -134,16 +153,18 @@ export default function HomePage(): ReactElement {
 
   return (
     <>
-      <Header />
-      <Boxes />
-      {(topics as TTopic[]).map((topic, i) => (
-        <Topic
-          key={topic.title}
-          svgComponent={topicSvgMap[topic.svg]}
-          topic={topic}
-          mirror={i % 2 === 1}
-        />
-      ))}
+      <Intro {...intro} />
+      <Header {...header} image={image} />
+      <div className={styles.topicsWrapper}>
+        <div className={styles.topics}>
+          {(topics as TTopic[]).map((topic, i) => (
+            <div key={i} className={styles.content}>
+              <h1>{topic.title}</h1>
+              <Markdown text={topic.content} />
+            </div>
+          ))}
+        </div>
+      </div>
       <Permission eventType="browse">
         <>
           {queryLatest && (

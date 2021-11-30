@@ -22,6 +22,6 @@
   display: inline-block;
   width: var(--font-size-large);
   height: var(--font-size-large);
-  fill: var(--brand-pink);
+  fill: var(--brand-steel-blue);
   transform: rotate(90deg);
 }

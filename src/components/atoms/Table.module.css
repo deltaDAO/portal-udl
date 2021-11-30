@@ -20,7 +20,7 @@
 
 .table [role='columnheader'] > span,
 .table [role='columnheader'] > div {
-  color: var(--color-secondary);
+  color: var(--font-color-text);
 }
 
 .table [role='gridcell'] {
@@ -34,14 +34,14 @@
 .table + div [class*='rdt_Pagination'] {
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-bold);
-  color: var(--color-secondary);
+  color: var(--font-color-text);
   background: none;
   min-height: 0;
   padding-top: calc(var(--spacer) / 2);
 }
 
 .table + div [class*='rdt_Pagination'] svg {
-  fill: var(--color-secondary);
+  fill: var(--font-color-text);
 }
 
 .table + div [class*='rdt_Pagination'] [disabled] svg {
@@ -53,7 +53,7 @@
 }
 
 .table + div [class*='rdt_Pagination'] button:hover:not(:disabled) svg {
-  fill: var(--brand-pink);
+  fill: var(--brand-steel-blue);
 }
 
 .table + div [class*='rdt_Pagination'] button[aria-label='First Page'],
@@ -68,7 +68,7 @@ div [class*='Table-module'] {
 .empty {
   width: 100%;
   text-align: left;
-  color: var(--color-secondary);
+  color: var(--font-color-text);
   font-size: var(--font-size-small);
   font-style: italic;
 }
