@@ -1,3 +1,30 @@
+.topicsWrapper {
+  display: flex;
+  justify-content: center;
+  background-color: var(--background-content);
+  padding-bottom: calc(var(--spacer) * 2);
+}
+
+.topics {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 70%;
+  padding-top: var(--spacer);
+}
+
+.topics h1 {
+  color: var(--color-primary);
+}
+
+.topics p {
+  font-size: var(--font-size-large);
+}
+
 .searchWrap {
   display: flex;
   justify-content: center;
@@ -14,4 +41,17 @@
 
 .section [class*='button'] {
   margin-top: var(--spacer);
+}
+
+@media screen and (min-width: 60rem) {
+  .topics {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 75%;
+  }
+
+  .content {
+    width: 40%;
+  }
 }
