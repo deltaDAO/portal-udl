@@ -19,11 +19,30 @@ import { PagedAssets } from '../../../models/PagedAssets'
 import Header from './Header'
 import { graphql, useStaticQuery } from 'gatsby'
 import Markdown from '../../atoms/Markdown'
-import Logo from '../../atoms/Logo'
+import Intro from './Intro'
 
-const topicQuery = graphql`
-  query TopicQuery {
-    file(relativePath: { eq: "pages/home/topics.json" }) {
+const contentQuery = graphql`
+  query ContentQuery {
+    intro: file(relativePath: { eq: "pages/home/intro.json" }) {
+      childHomeJson {
+        title
+        tagline
+      }
+    }
+    header: file(relativePath: { eq: "pages/home/header.json" }) {
+      childHomeJson {
+        title
+        content
+      }
+    }
+    image: file(relativePath: { eq: "microscope.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    topics: file(relativePath: { eq: "pages/home/topics.json" }) {
       childHomeJson {
         topics {
           title
@@ -114,8 +133,11 @@ export default function HomePage(): ReactElement {
   const [queryLatest, setQueryLatest] = useState<SearchQuery>()
   const { chainIds } = useUserPreferences()
 
-  const data = useStaticQuery(topicQuery)
-  const { topics } = data.file.childHomeJson
+  const data = useStaticQuery(contentQuery)
+  const { topics } = data.topics.childHomeJson
+  const intro = data.intro.childHomeJson
+  const header = data.header.childHomeJson
+  const image = data.image.childImageSharp.fluid
 
   useEffect(() => {
     const baseParams = {
@@ -132,20 +154,8 @@ export default function HomePage(): ReactElement {
 
   return (
     <>
-      <div className={styles.powered}>
-        <Markdown
-          className={styles.description}
-          text="*powered by* Ocean Protocol"
-        />
-        <a
-          href="https://oceanprotocol.com/"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          <Logo />
-        </a>
-      </div>
-      <Header />
+      <Intro {...intro} />
+      <Header {...header} image={image} />
       <div className={styles.topicsWrapper}>
         <div className={styles.topics}>
           {(topics as TTopic[]).map((topic, i) => (
