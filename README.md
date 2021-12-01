@@ -58,11 +58,11 @@ cp .env.example .env
 
 All displayed chain & network metadata is retrieved from `https://chainid.network` on build time and integrated into Gatsby's GraphQL layer. This data source is a community-maintained GitHub repository under [ethereum-lists/chains](https://github.com/ethereum-lists/chains).
 
-Since the Gaia-X Test Network is in it's early stages, this network is not yet added to the above mentioned repository. The Gaia-X network is added to the `ethereum-chain-list` during build time and can be accessed just like any other chain would within Ocean Market. If you want to overwrite some default configurations like the metadata cache or provider URIs you can do this comfortably in the `chains.config.js` file.
+Since the Gaia-X Test Network is in its early stages, this network is not yet added to the above-mentioned repository. The Gaia-X network is added to the `ethereum-chain-list` during build time and can be accessed just like any other chain would within Ocean Market. If you want to overwrite some default configurations like the metadata cache or provider URIs you can do this comfortably in the `chains.config.js` file.
 
 ### Lifecycle Management
 
-To showcase how data lifecycle management may work in the context of Gaia-X we provide a dedicated [Self Description Lifecycle Management repository](https://github.com/deltaDAO/Self-Description-Lifecycle-Management). It is possible to change the current lifecycle of an asset by simply adding to this repository. For more information head over to https://github.com/deltaDAO/Self-Description-Lifecycle-Management.
+To showcase how data lifecycle management may work in Gaia-X we provide a dedicated [Self Description Lifecycle Management repository](https://github.com/deltaDAO/Self-Description-Lifecycle-Management). It is possible to change the current lifecycle of an asset by simply adding it to this repository. For more information, head over to https://github.com/deltaDAO/Self-Description-Lifecycle-Management.
 
 ## ⬆️ Deployment
 
@@ -80,7 +80,7 @@ We welcome contributions in form of bug reports, feature requests, code changes,
 
 ## 🍴 Forking
 
-We encourage you to fork this repository and create your own Minimal Viable Gaia-X portal. When you publish your forked version of this portal there are a few elements that you are required to change for copyright reasons:
+We encourage you to fork this repository and create your own Minimal Viable Gaia-X portal. When you publish your forked version of this portal, there are a few elements that you are required to change for copyright reasons:
 
 - The Gaia-X logo is a trademark of the Gaia-X AISBL and must be removed from forked versions of the portal.
 - The deltaDAO logo is a trademark of deltaDAO AG and must be removed from forked versions of the portal.
