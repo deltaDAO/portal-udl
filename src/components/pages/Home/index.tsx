@@ -19,6 +19,7 @@ import Header from './Header'
 import { graphql, useStaticQuery } from 'gatsby'
 import Markdown from '../../atoms/Markdown'
 import Intro from './Intro'
+import Footer from './Footer'
 
 const contentQuery = graphql`
   query ContentQuery {
@@ -34,7 +35,7 @@ const contentQuery = graphql`
         content
       }
     }
-    image: file(relativePath: { eq: "microscope.png" }) {
+    headerImage: file(relativePath: { eq: "microscope.png" }) {
       childImageSharp {
         fluid {
           ...GatsbyImageSharpFluid
@@ -47,6 +48,18 @@ const contentQuery = graphql`
           title
           content
         }
+      }
+    }
+    footerImage: file(relativePath: { eq: "micin-aei.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    footer: file(relativePath: { eq: "pages/home/footer.json" }) {
+      childHomeJson {
+        content
       }
     }
   }
@@ -136,7 +149,9 @@ export default function HomePage(): ReactElement {
   const { topics } = data.topics.childHomeJson
   const intro = data.intro.childHomeJson
   const header = data.header.childHomeJson
-  const image = data.image.childImageSharp.fluid
+  const headerImage = data.headerImage.childImageSharp.fluid
+  const footerImage = data.footerImage.childImageSharp.fluid
+  const footer = data.footer.childHomeJson
 
   useEffect(() => {
     const baseParams = {
@@ -154,7 +169,7 @@ export default function HomePage(): ReactElement {
   return (
     <>
       <Intro {...intro} />
-      <Header {...header} image={image} />
+      <Header {...header} image={headerImage} />
       <div className={styles.topicsWrapper}>
         <div className={styles.topics}>
           {(topics as TTopic[]).map((topic, i) => (
@@ -180,6 +195,7 @@ export default function HomePage(): ReactElement {
           )}
         </>
       </Permission>
+      <Footer content={footer.content} image={footerImage} />
     </>
   )
 }
