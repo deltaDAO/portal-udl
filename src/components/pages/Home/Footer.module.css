@@ -1,0 +1,42 @@
+.container {
+  margin-top: calc(var(--spacer) * 2);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: calc(var(--spacer) * 2);
+}
+
+.text {
+  width: 70%;
+  text-align: center;
+  margin-top: var(--spacer);
+}
+
+.image {
+  width: 60%;
+  min-width: 20rem;
+}
+
+.container h1 {
+  color: var(--color-primary);
+}
+
+.container p {
+  font-size: var(--font-size-large);
+}
+
+@media screen and (min-width: 60rem) {
+  .content {
+    /* padding-bottom: calc(var(--spacer) * 2); */
+  }
+  .text {
+    width: 50%;
+  }
+  .image {
+    width: 50%;
+  }
+}
