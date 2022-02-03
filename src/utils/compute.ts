@@ -170,8 +170,7 @@ async function getJobs(
         '',
         account,
         undefined,
-        undefined,
-        false
+        undefined
       )) as ComputeJob[]
 
       // means the provider uri is not good, so we ignore it and move on
