@@ -11,6 +11,7 @@ import Results from './Results'
 import styles from './Details.module.css'
 import { useCancelToken } from '../../../../../hooks/useCancelToken'
 import { useSiteMetadata } from '../../../../../hooks/useSiteMetadata'
+import { DDO } from '@oceanprotocol/lib'
 
 function Asset({
   title,
@@ -41,8 +42,7 @@ function Asset({
   )
 }
 
-function DetailsAssets({ job }: { job: ComputeJobMetaData }) {
-  const { appConfig } = useSiteMetadata()
+function DetailsAssets({ job, ddo }: { job: ComputeJobMetaData; ddo: DDO }) {
   const [algoName, setAlgoName] = useState<string>()
   const [algoDtSymbol, setAlgoDtSymbol] = useState<string>()
   const newCancelToken = useCancelToken()
@@ -55,7 +55,7 @@ function DetailsAssets({ job }: { job: ComputeJobMetaData }) {
       setAlgoName(attributes?.main.name)
     }
     getAlgoMetadata()
-  }, [appConfig.metadataCacheUri, job.algoDID])
+  }, [ddo])
 
   return (
     <>
@@ -75,6 +75,19 @@ export default function Details({
   job: ComputeJobMetaData
 }): ReactElement {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const { appConfig } = useSiteMetadata()
+  const [ddo, setDdo] = useState<DDO>()
+
+  useEffect(() => {
+    async function getAlgoMetadata() {
+      const source = axios.CancelToken.source()
+
+      const ddo = await retrieveDDO(job.inputDID[0], source.token)
+
+      setDdo(ddo)
+    }
+    getAlgoMetadata()
+  }, [appConfig.metadataCacheUri, job.algoDID])
 
   return (
     <>
@@ -86,8 +99,8 @@ export default function Details({
         isOpen={isDialogOpen}
         onToggleModal={() => setIsDialogOpen(false)}
       >
-        <DetailsAssets job={job} />
-        <Results job={job} />
+        <DetailsAssets job={job} ddo={ddo} />
+        <Results job={job} ddo={ddo} />
 
         <div className={styles.meta}>
           <MetaItem
@@ -101,12 +114,6 @@ export default function Details({
             />
           )}
           <MetaItem title="Job ID" content={<code>{job.jobId}</code>} />
-          {job.resultsDid && (
-            <MetaItem
-              title="Published Results DID"
-              content={<code>{job.resultsDid}</code>}
-            />
-          )}
         </div>
       </Modal>
     </>

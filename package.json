@@ -31,7 +31,7 @@
     "@fontsource/overpass-mono": "^4.5.0",
     "@loadable/component": "^5.15.0",
     "@oceanprotocol/art": "^3.2.0",
-    "@oceanprotocol/lib": "^0.19.2",
+    "@oceanprotocol/lib": "^0.20.0",
     "@oceanprotocol/typographies": "^0.1.0",
     "@portis/web3": "^4.1.0",
     "@sindresorhus/slugify": "^2.1.0",
