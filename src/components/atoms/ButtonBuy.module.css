@@ -11,3 +11,7 @@
 .help:not(:empty) {
   margin-top: calc(var(--spacer) / 2);
 }
+
+.warning {
+  margin-bottom: calc(var(--spacer) / 2);
+}
