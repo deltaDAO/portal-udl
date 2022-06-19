@@ -49,6 +49,7 @@ import {
   SortTermOptions
 } from '../../../../models/SortAndFilters'
 import { SearchQuery } from '../../../../models/aquarius/SearchQuery'
+import { CredentialType } from '../Edit/EditAdvancedSettings'
 
 const SuccessAction = () => (
   <Button style="text" to="/profile?defaultTab=ComputeJobs" size="small">
@@ -94,6 +95,9 @@ export default function Compute({
   const [algorithmTimeout, setAlgorithmTimeout] = useState<string>()
   const newCancelToken = useCancelToken()
   const hasDatatoken = Number(dtBalance) >= 1
+  const [hasAlgorithmPriceUpdated, setHasAlgorithmPriceUpdated] =
+    useState(false)
+
   const isMounted = useIsMounted()
   const [isConsumablePrice, setIsConsumablePrice] = useState(true)
   const [isAlgoConsumablePrice, setIsAlgoConsumablePrice] = useState(true)
@@ -101,6 +105,7 @@ export default function Compute({
     isJobStarting === true ||
     file === null ||
     !ocean ||
+    !hasAlgorithmPriceUpdated ||
     (!hasPreviousDatasetOrder && !hasDatatoken && !isConsumablePrice) ||
     (!hasPreviousAlgorithmOrder &&
       !hasAlgoAssetDatatoken &&
@@ -192,8 +197,10 @@ export default function Compute({
 
   const initMetadata = useCallback(async (ddo: DDO): Promise<void> => {
     if (!ddo) return
+    setHasAlgorithmPriceUpdated(false)
     const price = await getPrice(ddo)
     setAlgorithmPrice(price)
+    setHasAlgorithmPriceUpdated(true)
   }, [])
 
   useEffect(() => {
@@ -409,7 +416,17 @@ export default function Compute({
     } catch (error) {
       await checkPreviousOrders(selectedAlgorithmAsset)
       await checkPreviousOrders(ddo)
-      setError('Failed to start job!')
+
+      const { message, result } = ocean.assets.checkCredential(
+        selectedAlgorithmAsset,
+        CredentialType.address,
+        accountId
+      )
+
+      result === false
+        ? setError(`Failed to start job: ${message.toLowerCase()}.`)
+        : setError(`Failed to start job!`)
+
       Logger.error('[compute] Failed to start job: ', error.message)
     } finally {
       setIsJobStarting(false)
@@ -444,6 +461,7 @@ export default function Compute({
           <FormStartComputeDataset
             algorithms={algorithmList}
             ddoListAlgorithms={ddoAlgorithmList}
+            selectedAlgorithm={selectedAlgorithmAsset}
             setSelectedAlgorithm={setSelectedAlgorithmAsset}
             isLoading={isJobStarting}
             isComputeButtonDisabled={isComputeButtonDisabled}
@@ -465,6 +483,7 @@ export default function Compute({
             selectedComputeAssetTimeout={algorithmTimeout}
             stepText={pricingStepText || 'Starting Compute Job...'}
             algorithmPrice={algorithmPrice}
+            hasAlgorithmPriceUpdated={hasAlgorithmPriceUpdated}
             isConsumable={isConsumable}
             consumableFeedback={consumableFeedback}
           />
