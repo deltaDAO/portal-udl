@@ -11,7 +11,7 @@
     {
       "name": "description",
       "label": "Description",
-      "help": "Add a thorough description with as much detail as possible. You can use [Markdown](https://daringfireball.net/projects/markdown/basics). You can change the description at any time. If you provide personal data, please note that it will remain in the transaction history. For more information on how personal data is handled within the metadata, please refer to our [privacy policy](/privacy/en).",
+      "help": "Add a thorough description with as much detail as possible. You can use [Markdown](https://daringfireball.net/projects/markdown/basics). You can change the description at any time. Please do not provide personal data in the description. Your description will remain permanently on-chain on the Gaia-X testnet. For more information, please refer to our [privacy policy](/privacy/en).",
       "type": "textarea",
       "required": true
     },
@@ -19,17 +19,16 @@
       "name": "files",
       "label": "File",
       "placeholder": "e.g. https://file.com/file.json",
-      "help": "Add a thorough description with as much detail as possible. You can use [Markdown](https://daringfireball.net/projects/markdown/basics). You can change the description at any time. Please do not provide personal data in the description. Your description will remain permanently on-chain on the Gaia-X testnet. For more information, please refer to our [privacy policy](/privacy/en).",
-      "type": "textarea",
+      "help": "Please enter the URL to your data set file and click \"ADD FILE\" to validate the data. This URL will be stored permanently encrypted on-chain on the Gaia-X testnet after publishing. For a compute data set, your file should match the file type required by the algorithm.",
+      "type": "files",
       "required": true
     },
     {
       "name": "links",
       "label": "Sample file",
       "placeholder": "e.g. https://file.com/samplefile.json",
-      "help": "Please enter the URL to your data set file and click \"ADD FILE\" to validate the data. This URL will be stored permanently encrypted on-chain on the Gaia-X testnet after publishing. For a compute data set, your file should match the file type required by the algorithm.",
-      "type": "files",
-      "required": true
+      "help": "Please enter the URL to a sample of your data set file and click \"ADD FILE\" to validate the data. This file should reveal the data structure of your data set, e.g. by including the header and one line of a CSV file. This file URL will be publicly available after publishing.",
+      "type": "files"
     },
     {
       "name": "access",
