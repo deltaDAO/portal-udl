@@ -6,20 +6,25 @@
 }
 
 .content a,
-.content button {
+.content button,
+.link {
   color: inherit;
 }
 
-.content button {
+.content button,
+.link {
   text-transform: none;
   transform: none !important;
   font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-small);
 }
 
 .content a:hover,
 .content a:focus,
 .content button:hover,
-.content button:focus {
+.content button:focus,
+.link a:hover,
+.link a:focus {
   color: var(--color-primary);
 }
 
