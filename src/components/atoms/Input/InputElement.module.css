@@ -88,6 +88,7 @@
 
 .radioWrap {
   position: relative;
+  display: flex;
 }
 
 .radioLabel {
@@ -113,6 +114,7 @@
   padding: 0;
   width: 18px;
   height: 18px;
+  min-width: 18px;
   min-height: 0;
   display: inline-block;
   vertical-align: middle;

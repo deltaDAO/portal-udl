@@ -43,7 +43,19 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
-        plugins: [`gatsby-remark-autolink-headers`]
+        plugins: [
+          {
+            resolve: `gatsby-remark-table-of-contents`,
+            options: {
+              exclude: 'Table of Contents',
+              tight: false,
+              ordered: false,
+              fromHeading: 1,
+              toHeading: 6
+            }
+          },
+          `gatsby-remark-autolink-headers`
+        ]
       }
     },
     {
@@ -71,13 +83,6 @@ module.exports = {
         cache_busting_mode: 'none'
       }
     },
-    'gatsby-plugin-webpack-size',
-    {
-      resolve: 'gatsby-plugin-use-dark-mode',
-      options: {
-        ...appConfig.darkModeConfig,
-        minify: true
-      }
-    }
+    'gatsby-plugin-webpack-size'
   ]
 }
