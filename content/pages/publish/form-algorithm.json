@@ -19,7 +19,7 @@
       "name": "files",
       "label": "File",
       "placeholder": "e.g. https://file.com/file.json",
-      "help": "Please enter the URL to your algorithm file and click \"ADD FILE\" to validate the data. This URL will be stored encrypted after publishing. Some restrictions apply:\n\n- max. running time: 1 min.\n- [Writing Algorithms for Compute to Data](https://docs.oceanprotocol.com/tutorials/compute-to-data-algorithms/)",
+      "help": "Please enter the URL to your algorithm file and click \"ADD FILE\" to validate the data. This URL will be stored permanently encrypted on-chain on the Gaia-X testnet after publishing. Some restrictions apply:\n\n- max. running time: 1 min.\n- [Writing Algorithms for Compute to Data](https://docs.oceanprotocol.com/tutorials/compute-to-data-algorithms/)",
       "type": "files",
       "required": true
     },
@@ -105,7 +105,17 @@
       "type": "terms",
       "options": ["I accept the [Terms and Conditions.](/terms)"],
       "required": true
+    },
+    {
+      "name": "noPersonalData",
+      "label": "Metadata confirmation",
+      "type": "terms",
+      "options": [
+        "I confirm that I did not provide personal data in the metadata, which will be stored permanently on-chain on the Gaia-X testnet."
+      ],
+      "required": true
     }
   ],
+  "walletDisclaimer": "When you click submit, your wallet address and public key will be transmitted to a smart contract stored permanently on-chain on the Gaia-X testnet.",
   "success": "Algorithm Published!"
 }

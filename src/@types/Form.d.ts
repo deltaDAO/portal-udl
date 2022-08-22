@@ -25,4 +25,5 @@ export interface FormContent {
   description?: string
   success: string
   data: FormFieldProps[]
+  walletDisclaimer: string
 }
