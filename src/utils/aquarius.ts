@@ -239,7 +239,7 @@ export async function getAssetsFromDidList(
         sortBy: SortTermOptions.Created,
         sortDirection: SortDirectionOptions.Descending
       },
-      filters: [getFilterTerm('id', didList)],
+      filters: [getFilterTerm('_id', didList)],
       ignorePurgatory: true
     } as BaseQueryParams
     const query = generateBaseQuery(baseParams)
@@ -265,7 +265,7 @@ export async function retrieveDDOListByDIDs(
         sortBy: SortTermOptions.Created,
         sortDirection: SortDirectionOptions.Descending
       },
-      filters: [getFilterTerm('id', didList)],
+      filters: [getFilterTerm('_id', didList)],
       ignorePurgatory: true
     } as BaseQueryParams
     const query = generateBaseQuery(baseQueryparams)
@@ -423,7 +423,7 @@ export async function getDownloadAssets(
         sortDirection: SortDirectionOptions.Descending
       },
       filters: [
-        getFilterTerm('id', didList),
+        getFilterTerm('_id', didList),
         getFilterTerm('service.type', 'access')
       ]
     } as BaseQueryParams
