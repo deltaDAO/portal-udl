@@ -285,7 +285,7 @@ export async function retrieveDDOListByDIDs(
 }
 
 export async function transformDDOToAssetSelection(
-  datasetProviderEndpoint: string,
+  datasetProviderEndpoint: string | undefined,
   ddoList: DDO[],
   selectedAlgorithms?: PublisherTrustedAlgorithm[],
   cancelToken?: CancelToken
@@ -307,6 +307,7 @@ export async function transformDDOToAssetSelection(
     if (
       priceList[did] &&
       (!didProviderEndpointMap[did] ||
+        datasetProviderEndpoint === undefined ||
         didProviderEndpointMap[did] === datasetProviderEndpoint)
     ) {
       let selected = false

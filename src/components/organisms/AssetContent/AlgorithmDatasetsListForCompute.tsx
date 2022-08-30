@@ -20,13 +20,9 @@ export default function AlgorithmDatasetsListForCompute({
   const newCancelToken = useCancelToken()
   useEffect(() => {
     async function getDatasetsAllowedForCompute() {
-      const isCompute = Boolean(dataset?.findServiceByType('compute'))
-      const datasetComputeService = dataset.findServiceByType(
-        isCompute ? 'compute' : 'access'
-      )
       const datasets = await getAlgorithmDatasetsForCompute(
         algorithmDid,
-        datasetComputeService?.serviceEndpoint,
+        undefined,
         dataset?.chainId,
         newCancelToken()
       )
