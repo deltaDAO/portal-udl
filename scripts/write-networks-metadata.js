@@ -7,49 +7,56 @@ const axios = require('axios')
 const chainDataUrl = 'https://chainid.network/chains.json'
 
 axios(chainDataUrl).then((response) => {
-  //Hack in GX network data
-  response.data.push({
+  // avoid having 2 nodes with the same chainId
+  const filteredData = response.data.filter((node) => node.chainId !== 100)
+
+  filteredData.push({
     name: 'Gaia-X Testnet',
-    chain: 'Gaia-X',
+    chain: 'GX',
     network: 'testnet',
     rpc: ['https://rpc.gaiaxtestnet.oceanprotocol.com'],
-    faucets: [
-      'https://faucet.gaiaxtestnet.oceanprotocol.com/',
-      'https://faucet.gx.gaiaxtestnet.oceanprotocol.com/'
-    ],
+    faucets: [],
     nativeCurrency: {
       name: 'Gaia-X',
       symbol: 'GX',
       decimals: 18
     },
     infoURL: 'https://gaia-x.eu',
-    shortName: 'Gaia-X',
+    shortName: 'GX',
     chainId: 2021000,
-    networkId: 2021000,
-    explorers: [{ url: 'https://blockscout.gaiaxtestnet.oceanprotocol.com/' }]
+    networkId: 2021000
   })
-
-  //Hack in CX network data
-  response.data.push({
+  filteredData.push({
     name: 'Catena-X Testnet',
-    chain: 'Catena-X',
+    chain: 'CX',
     network: 'testnet',
     rpc: ['https://rpc.catenaxtestnet.oceanprotocol.com'],
-    faucets: [
-      'https://faucet.catenaxtestnet.oceanprotocol.com/',
-      'https://faucet.cx.catenaxtestnet.oceanprotocol.com/'
-    ],
+    faucets: [],
     nativeCurrency: {
       name: 'Catena-X',
       symbol: 'CX',
       decimals: 18
     },
     infoURL: 'https://catena-x.net',
-    shortName: 'Catena-X',
+    shortName: 'CX',
     chainId: 2021001,
-    networkId: 2021001,
-    explorers: [{ url: 'https://blockscout.catenaxtestnet.oceanprotocol.com/' }]
+    networkId: 2021001
   })
-
-  process.stdout.write(JSON.stringify(response.data, null, '  '))
+  filteredData.push({
+    name: 'GEN-X Testnet',
+    chain: 'GEN-X',
+    network: 'testnet',
+    rpc: ['http://194.182.169.98:8545'],
+    faucets: [],
+    nativeCurrency: {
+      name: 'GEN-X',
+      symbol: 'GX',
+      decimals: 18
+    },
+    infoURL: '',
+    shortName: 'GEN-X',
+    chainId: 100,
+    networkId: 100
+  })
+  process.stdout.write(JSON.stringify(filteredData, null, '  '))
 })

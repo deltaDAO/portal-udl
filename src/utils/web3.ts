@@ -71,6 +71,9 @@ export function getNetworkDisplayName(
     case 8996:
       displayName = 'Development'
       break
+    case 100:
+      displayName = 'GEN-X Testnet'
+      break
     default:
       displayName = data
         ? `${data.chain} ${data.network === 'mainnet' ? '' : data.network}`
