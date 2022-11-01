@@ -25,6 +25,7 @@
   width: 100%;
 }
 
+.input + span,
 .input:checked + span {
   color: var(--font-color-text);
   font-weight: var(--font-weight-bold);
