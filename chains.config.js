@@ -36,13 +36,14 @@ const chains = [
     factoryAddress: '0x325c09E2093C56AbDc86c5ccD68c77952e8034Af',
     fixedRateExchangeAddress: '0x69Df9594E6A30a5751D170093059E7adb3Bf5e92',
     gasFeeMultiplier: 1,
+    isActive: true,
     isDefault: true,
     metadataCacheUri: 'https://aquarius.delta-dao.com/',
     metadataContractAddress: '0xfA89407778041EF51B9e1aA16Ff85bDf908D17e6',
     name: 'GEN-X',
     network: 'genxtestnet',
     networkId: GEN_X_NETWORK_ID,
-    nodeUri: 'http://194.182.169.98:8545/',
+    nodeUri: 'https://rpc.genx.minimal-gaia-x.eu',
     oceanTokenAddress: '0x0995527d3473b3A98C471f1ED8787ACD77fBF009',
     oceanTokenSymbol: 'OCEAN',
     providerUri: 'https://provider.genx.delta-dao.com',
@@ -56,11 +57,13 @@ const chains = [
 ]
 
 const getDefaultChainIds = () => {
-  return chains.filter((chain) => chain.isDefault).map((c) => c.chainId)
+  return chains
+    .filter((chain) => chain.isDefault && chain.isActive)
+    .map((c) => c.chainId)
 }
 
 const getSupportedChainIds = () => {
-  return chains.map((c) => c.chainId)
+  return chains.filter((chain) => chain.isActive).map((c) => c.chainId)
 }
 
 module.exports = {
