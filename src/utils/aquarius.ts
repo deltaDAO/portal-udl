@@ -36,10 +36,14 @@ export const MAXIMUM_NUMBER_OF_PAGES_WITH_RESULTS = 476
  * @param value the value of the filter
  * @returns json structure of the es filter
  */
+
+type TFilterValue = string | number | boolean | number[] | string[]
+type TFilterKey = 'terms' | 'term' | 'match' | 'match_phrase'
+
 export function getFilterTerm(
   filterField: string,
-  value: string | number | boolean | number[] | string[],
-  key: 'terms' | 'term' | 'match' = 'term'
+  value: TFilterValue,
+  key: TFilterKey = 'term'
 ): FilterTerm {
   const isArray = Array.isArray(value)
   const useKey = key === 'term' ? (isArray ? 'terms' : 'term') : key
@@ -239,7 +243,7 @@ export async function getAssetsFromDidList(
         sortBy: SortTermOptions.Created,
         sortDirection: SortDirectionOptions.Descending
       },
-      filters: [getFilterTerm('id', didList)],
+      filters: [getFilterTerm('_id', didList)],
       ignorePurgatory: true
     } as BaseQueryParams
     const query = generateBaseQuery(baseParams)
@@ -265,7 +269,7 @@ export async function retrieveDDOListByDIDs(
         sortBy: SortTermOptions.Created,
         sortDirection: SortDirectionOptions.Descending
       },
-      filters: [getFilterTerm('id', didList)],
+      filters: [getFilterTerm('_id', didList)],
       ignorePurgatory: true
     } as BaseQueryParams
     const query = generateBaseQuery(baseQueryparams)
@@ -281,7 +285,7 @@ export async function retrieveDDOListByDIDs(
 }
 
 export async function transformDDOToAssetSelection(
-  datasetProviderEndpoint: string,
+  datasetProviderEndpoint: string | undefined,
   ddoList: DDO[],
   selectedAlgorithms?: PublisherTrustedAlgorithm[],
   cancelToken?: CancelToken
@@ -303,6 +307,7 @@ export async function transformDDOToAssetSelection(
     if (
       priceList[did] &&
       (!didProviderEndpointMap[did] ||
+        datasetProviderEndpoint === undefined ||
         didProviderEndpointMap[did] === datasetProviderEndpoint)
     ) {
       let selected = false
@@ -342,7 +347,8 @@ export async function getAlgorithmDatasetsForCompute(
     filters: [
       getFilterTerm(
         'service.attributes.main.privacy.publisherTrustedAlgorithms.did',
-        algorithmId
+        algorithmId,
+        'match_phrase'
       )
     ],
     sortOptions: {
@@ -423,7 +429,7 @@ export async function getDownloadAssets(
         sortDirection: SortDirectionOptions.Descending
       },
       filters: [
-        getFilterTerm('id', didList),
+        getFilterTerm('_id', didList),
         getFilterTerm('service.type', 'access')
       ]
     } as BaseQueryParams

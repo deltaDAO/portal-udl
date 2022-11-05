@@ -170,7 +170,8 @@ export default function FormStartCompute({
   useEffect(() => {
     if (totalPrice >= 0) {
       setIsBalanceSufficient(
-        compareAsBN(balance.ocean, `${totalPrice}`) || Number(dtBalance) >= 1
+        compareAsBN(balance.ocean || '0', `${totalPrice}`) ||
+          Number(dtBalance) >= 1
       )
     }
   }, [totalPrice])

@@ -157,7 +157,7 @@ export default function Compute({
       },
       filters: [
         getFilterTerm('service.attributes.main.type', 'algorithm'),
-        getFilterTerm('id', algorithmDidList)
+        getFilterTerm('_id', algorithmDidList)
       ]
     } as BaseQueryParams
 
@@ -168,32 +168,30 @@ export default function Compute({
   async function getAlgorithmList(): Promise<AssetSelectionAsset[]> {
     const source = axios.CancelToken.source()
     const computeService = ddo.findServiceByType('compute')
-    let algorithmSelectionList: AssetSelectionAsset[]
     if (
       !computeService.attributes.main.privacy ||
       !computeService.attributes.main.privacy.publisherTrustedAlgorithms ||
       (computeService.attributes.main.privacy.publisherTrustedAlgorithms
         .length === 0 &&
         !computeService.attributes.main.privacy.allowAllPublishedAlgorithms)
-    ) {
-      algorithmSelectionList = []
-    } else {
-      const gueryResults = await queryMetadata(
-        getQuerryString(
-          computeService.attributes.main.privacy.publisherTrustedAlgorithms,
-          ddo.chainId
-        ),
-        source.token
-      )
-      setDdoAlgorithmList(gueryResults.results)
-      const datasetComputeService = ddo.findServiceByType('compute')
-      algorithmSelectionList = await transformDDOToAssetSelection(
-        datasetComputeService?.serviceEndpoint,
-        gueryResults.results,
-        [],
-        newCancelToken()
-      )
-    }
+    )
+      return []
+
+    const queryResults = await queryMetadata(
+      getQuerryString(
+        computeService.attributes.main.privacy.publisherTrustedAlgorithms,
+        ddo.chainId
+      ),
+      source.token
+    )
+    setDdoAlgorithmList(queryResults.results)
+    const algorithmSelectionList = await transformDDOToAssetSelection(
+      undefined,
+      queryResults.results,
+      [],
+      newCancelToken()
+    )
+
     return algorithmSelectionList
   }
 
