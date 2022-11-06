@@ -12,13 +12,11 @@ export default function Footer(): ReactElement {
 
   const cookies = useGdprMetadata()
 
-  const year = new Date().getFullYear()
-
   return (
     <footer className={styles.footer}>
       <div className={styles.content}>
         <div className={styles.copyright}>
-          © {year} <Markdown text={copyright} />
+          <Markdown text={copyright} />
           <br />
           <Button
             className={styles.link}
