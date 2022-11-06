@@ -20,7 +20,7 @@ export default function UserPreferences(): ReactElement {
           <Debug />
         </ul>
       }
-      trigger="click focus"
+      trigger="click focus mouseenter"
       className={styles.preferences}
     >
       <Cog aria-label="Preferences" className={styles.icon} />
