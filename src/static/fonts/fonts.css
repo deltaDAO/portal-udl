@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+  src: url('OpenSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+  src: url('OpenSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: 800;
+  font-display: swap;
+  font-style: normal;
+  src: url('OpenSans-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Overpass Mono';
+  font-display: swap;
+  font-style: normal;
+  src: url('OverpassMono-Regular.ttf') format('truetype');
+}
