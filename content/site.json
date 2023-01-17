@@ -3,7 +3,7 @@
     "siteTitle": "Universitat de Lleida",
     "siteTagline": "A marketplace to find, publish and trade data sets in the Ocean Network.",
     "siteUrl": "https://market001.delta-dao.com",
-    "siteIcon": "node_modules/@oceanprotocol/art/logo/favicon-white.png",
+    "siteIcon": "./src/images/favicon.png",
     "siteImage": "../src/images/share.png",
     "copyright": "Built by [deltaDAO](https://delta-dao.com)",
     "menu": [

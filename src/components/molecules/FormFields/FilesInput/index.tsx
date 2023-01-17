@@ -1,5 +1,4 @@
 import React, { ReactElement, useState, useEffect } from 'react'
-import axios from 'axios'
 import { useField } from 'formik'
 import { toast } from 'react-toastify'
 import FileInfo from './Info'
@@ -9,7 +8,7 @@ import { fileinfo } from '../../../../utils/provider'
 import { useWeb3 } from '../../../../providers/Web3'
 import { getOceanConfig } from '../../../../utils/ocean'
 import { useCancelToken } from '../../../../hooks/useCancelToken'
-import { GX_NETWORK_ID } from '../../../../../chains.config'
+import { GEN_X_NETWORK_ID } from '../../../../../chains.config'
 
 export default function FilesInput(props: InputProps): ReactElement {
   const [field, meta, helpers] = useField(props.name)
@@ -19,7 +18,7 @@ export default function FilesInput(props: InputProps): ReactElement {
   const newCancelToken = useCancelToken()
 
   function loadFileInfo() {
-    const config = getOceanConfig(chainId || GX_NETWORK_ID)
+    const config = getOceanConfig(chainId || GEN_X_NETWORK_ID)
 
     async function validateUrl() {
       try {
